@@ -76,6 +76,22 @@ $(document).ready(function() {
 
 ```
 
+## Installation de Fontawesome
+
+```terminal
+yarn add @fortawesome/fontawesome-free
+```
+
+Importe Fontawesome dans ton fichier SCSS
+
+```SCSS
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+```
+
 ## Relancer le _build_ Webpack
 
 ```terminal
