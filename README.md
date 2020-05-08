@@ -2,7 +2,9 @@
 
 ## Créer nouveau projet Symfony
 
-```symfony new --full <name_project> --version=lts```
+```terminal
+symfony new --full <name_project> --version=lts
+```
 
 ## Installation de Webpack
 
@@ -10,19 +12,27 @@
 
 #### Installer Encore dans les applications Symfony
 
-```composer require symfony/webpack-encore-bundle```
+```terminal
+composer require symfony/webpack-encore-bundle
+```
 
-```yarn install```
+```terminal
+yarn install
+```
 
 #### Installer Encore dans les applications non Symfony
 
-```yarn add @symfony/webpack-encore --dev```
+```terminal
+yarn add @symfony/webpack-encore --dev
+```
 
 ## Installation du SCSS dans ton projet
 
-Décocher la suivante dans le fichier _webpack.config.js_
+Décoche la suivante dans le fichier _webpack.config.js_
 
-```.enableSassLoader()```
+```javascript
+.enableSassLoader()
+```
 
 ## installation de Bootstrap
 
@@ -30,15 +40,21 @@ Décocher la suivante dans le fichier _webpack.config.js_
 
 #### Bootstrap CSS
 
-```yarn add bootstrap --dev```
+```terminal
+yarn add bootstrap --dev
+```
 
-Importer Bootstrap dans le fichier scss
+Importe Bootstrap dans le fichier scss
 
-```@import "~bootstrap/scss/bootstrap";```
+```SCSS
+@import "~bootstrap/scss/bootstrap";
+```
 
 #### Bootstrap JS
 
-```yarn add jquery popper.js --dev```
+```terminal
+yarn add jquery popper.js --dev
+```
 
 Dans le fichier Javascript
 
@@ -62,4 +78,6 @@ $(document).ready(function() {
 
 ## Relancer le _build_ Webpack
 
-```yarn encore dev --watch```
+```terminal
+yarn encore dev --watch
+```
