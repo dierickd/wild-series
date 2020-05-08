@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,400;0,900;1,400&display=swap');
+@import "~bootstrap/scss/bootstrap";
+$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+@import '~@fortawesome/fontawesome-free/scss/fontawesome';
+@import '~@fortawesome/fontawesome-free/scss/solid';
+@import '~@fortawesome/fontawesome-free/scss/regular';
+@import '~@fortawesome/fontawesome-free/scss/brands';
+
+// color
+$primary: #C7A53A;
+$secondary-light: rgba(250, 137, 0, .7);
+$secondary: rgba(250, 137, 0, 1);
+
+// background
+$color-main: #424145;
+$color-light: #F5F5F5;
+
+// font
+$ff-main:'Roboto', sans-serif;
+$ff-title: 'Courgette', cursive;
+
+
+
+body {
+    font-family: $ff-main;
+    background-color: $color-light;
+}
+.container {
+    margin-top: 2rem;
+}
+.bg-dark {
+    background-color: $color-main;
+}
+.navbar-dark .navbar-nav .nav-link {
+    color: $secondary-light;
+    font-family: $ff-title;
+}
+.navbar-dark .navbar-nav .nav-link:hover {
+    color: $secondary;
+}
