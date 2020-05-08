@@ -18,6 +18,8 @@ composer require symfony/webpack-encore-bundle
 
 >Remarque : dans toute cette quête, tu utiliseras ![yarn](https://classic.yarnpkg.com/en/docs/install/#debian-stable), car c’est l’outil recommandé par Symfony dans la documentation officielle, mais note que tu peux aussi utiliser un outil équivalent qui s’appelle ![npm](https://www.npmjs.com/get-npm). Les deux sont équivalents (mais si tu commences un projet avec l’un, il ne faut plus que tu en changes en cours de route, au risque d’avoir des conflits) et nécessitent également d’installer ![nodejs](https://nodejs.org/en/). Si tu n’as pas déjà ces outils sur ton poste, il faudra donc les installer avant de continuer.
 
+Installation de nodejs via la doc ![ubuntu](https://doc.ubuntu-fr.org/nodejs)
+
 ```terminal
 yarn install
 ```
