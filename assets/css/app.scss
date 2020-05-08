@@ -31,10 +31,12 @@ body {
 .bg-dark {
     background-color: $color-main;
 }
-.navbar-dark .navbar-nav .nav-link {
+.navbar-dark .navbar-nav .nav-link,
+.navbar .navbar-brand {
     color: $secondary-light;
     font-family: $ff-title;
 }
-.navbar-dark .navbar-nav .nav-link:hover {
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar .navbar-brand:hover {
     color: $secondary;
 }
