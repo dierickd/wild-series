@@ -20,6 +20,12 @@ composer require symfony/webpack-encore-bundle
 yarn install
 ```
 
+#### Installer Encore dans les applications non Symfony
+
+```terminal
+yarn add @symfony/webpack-encore --dev
+```
+
 ### Liens assets dans twig
 
 Pour intégrer ces fichiers générés par Encore dans Symfony, il faut ajouter les chemins dans le HTML du fichier base.html.twig.
@@ -32,13 +38,6 @@ Pour intégrer ces fichiers générés par Encore dans Symfony, il faut ajouter 
 {% block javascripts %}
            {{ encore_entry_script_tags('app') }}
 {% endblock %}
-```
-
-
-#### Installer Encore dans les applications non Symfony
-
-```terminal
-yarn add @symfony/webpack-encore --dev
 ```
 
 ## Installation du SCSS dans ton projet
