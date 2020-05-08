@@ -100,7 +100,7 @@ $(document).ready(function() {
 yarn add @fortawesome/fontawesome-free
 ```
 
-Importe Fontawesome dans ton fichier SCSS
+Importe Font awesome dans ton fichier SCSS
 
 ```SCSS
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
