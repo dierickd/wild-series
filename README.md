@@ -20,6 +20,15 @@
 
 ## Installation du SCSS dans ton projet
 
-Décocher la suivante dans le fichier __webpack.config.js__
+Décocher la suivante dans le fichier _webpack.config.js_
 
 ```.enableSassLoader()```
+
+## installation de Bootstrap
+
+![Guide installation Bootstrap _(Symfony)_](https://symfony.com/doc/current/frontend/encore/bootstrap.html)
+
+
+## Relancer le _build_ Webpack
+
+```yarn encore dev --watch```
