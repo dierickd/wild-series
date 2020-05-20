@@ -18,7 +18,9 @@ class WildController extends AbstractController
      */
     public function index(): Response
     {
-        $categories = $this->selectAllCategories();
+        $categories = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findAll();
 
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
@@ -65,40 +67,36 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/wild/category/{category}", name="wild_category")
-     * @param int $category
+     * @Route("/wild/{categoryName}", name="wild_categoryName")
+     * @param string $categoryName
      * @return Response
      */
-    public function category(int $category): Response
+    public function showByCategory(string $categoryName): Response
     {
-        if (!$category) {
+        if (!$categoryName) {
             throw $this
                 ->createNotFoundException('No category has been sent to find a program in program\'s table.');
         }
-        $categories = $this->selectAllCategories();
-
-        $categoryActive = $this->getDoctrine()
+        $categories = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->findOneBy(['id' => $category]);
+            ->findAll();
+
+        $category = $this->getDoctrine()
+            ->getRepository(Category::class)
+            ->findOneByName($categoryName);
 
         $selectByCategory = $this->getDoctrine()
             ->getRepository(Program::class)
-            ->findByCategory($category);
+            ->findByCategory(
+                ['category' => $category],
+                ['id' => 'DESC'],
+                3
+            );
 
         return $this->render('wild/showByCategory.html.twig', [
             'selectByCategory' => $selectByCategory,
             'categories' => $categories,
-            'categoryActive' => $categoryActive,
+            'categoryName' => $category,
         ]);
-    }
-
-    /**
-     * @return array
-     */
-    public function selectAllCategories(): array
-    {
-        return $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findAll();
     }
 }
