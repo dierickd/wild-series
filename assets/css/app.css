@@ -4,11 +4,11 @@ Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.
 
 1: @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,400;0,900;1,400&display=swap');
 2: @import "~bootstrap/scss/bootstrap";
-3: $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
-4: @import '~@fortawesome/fontawesome-free/scss/fontawesome';
-5: @import '~@fortawesome/fontawesome-free/scss/solid';
-6: @import '~@fortawesome/fontawesome-free/scss/regular';
-7: @import '~@fortawesome/fontawesome-free/scss/brands';
+3: 
+4: $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
+5: @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+6: @import '~@fortawesome/fontawesome-free/scss/solid';
+7: @import '~@fortawesome/fontawesome-free/scss/regular';
 
 Backtrace:
 app.scss:2
@@ -47,4 +47,4 @@ app.scss:2
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.\A         on line 2 of app.scss\A \A 1: @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,400;0,900;1,400&display=swap');\A 2: @import \"~bootstrap/scss/bootstrap\";\A 3: $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';\A 4: @import '~@fortawesome/fontawesome-free/scss/fontawesome';\A 5: @import '~@fortawesome/fontawesome-free/scss/solid';\A 6: @import '~@fortawesome/fontawesome-free/scss/regular';\A 7: @import '~@fortawesome/fontawesome-free/scss/brands';"; }
+  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.\A         on line 2 of app.scss\A \A 1: @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,400;0,900;1,400&display=swap');\A 2: @import \"~bootstrap/scss/bootstrap\";\A 3: \A 4: $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';\A 5: @import '~@fortawesome/fontawesome-free/scss/fontawesome';\A 6: @import '~@fortawesome/fontawesome-free/scss/solid';\A 7: @import '~@fortawesome/fontawesome-free/scss/regular';"; }
