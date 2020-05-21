@@ -9,7 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProgramRepository")
  */
-class Program
+class Program extends \App\Entity\Category
 {
     /**
      * @ORM\Id()
@@ -44,9 +44,15 @@ class Program
      */
     private $programs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Season", mappedBy="program_id")
+     */
+    private $seasons;
+
     public function __construct()
     {
         $this->programs = new ArrayCollection();
+        $this->seasons = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -112,7 +118,8 @@ class Program
 
     /**
      * param Program $program
-     * @return Category
+     * @param Program $program
+     * @return Program
      */
     public function addProgram(Program $program): self
     {
@@ -136,6 +143,37 @@ class Program
             // set the owning side to null (unless already changed)
             if ($program->getCategory() === $this) {
                 $program->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Season[]
+     */
+    public function getSeasons(): Collection
+    {
+        return $this->seasons;
+    }
+
+    public function addSeason(Season $season): self
+    {
+        if (!$this->seasons->contains($season)) {
+            $this->seasons[] = $season;
+            $season->setProgramId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSeason(Season $season): self
+    {
+        if ($this->seasons->contains($season)) {
+            $this->seasons->removeElement($season);
+            // set the owning side to null (unless already changed)
+            if ($season->getProgramId() === $this) {
+                $season->setProgramId(null);
             }
         }
 
