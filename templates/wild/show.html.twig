@@ -1,5 +1,5 @@
 {% extends 'base.html.twig' %}
-{% block title %}{{ slug }}{% endblock %}
+{% block title %}{{ program.title }}{% endblock %}
 
 {% block body %}
     <div class="container">
@@ -8,10 +8,21 @@
         </a>
         <div class="media">
             <img class="align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
-            <div class="media-body">
-                <h1 class="mt-0">{{ program.title }}</h1>
-                <p>{{ program.summary }}</p>
-                <p>Categorie : {{ program.category.name }}</p>
+            <div class="media-detail">
+                <div class="media-body">
+                    <h1 class="mt-0">{{ program.title }}</h1>
+                    <p>{{ program.summary }}</p>
+                    <p>Categorie : {{ program.category.name }}</p>
+                </div>
+                <div class="seasons-list">
+                    <ul class="nav flex-row">
+                        {% for season in seasons %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="">Saison {{ season.number }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
 
