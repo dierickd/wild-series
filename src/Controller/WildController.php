@@ -13,13 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class WildController extends AbstractController
 {
     /**
+     * Show all rows from Program’s entity
+     *
      * @Route("/wild", name="wild_index")
-     * @return Response
+     * @return Response A response instance
      */
     public function index(): Response
     {
-        $categories = $this->selectAllCategories();
-
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
             ->findAll();
@@ -30,10 +30,10 @@ class WildController extends AbstractController
             );
         }
 
-        return $this->render('wild/index.html.twig', [
-            'programs' => $programs,
-            'categories' => $categories,
-        ]);
+        return $this->render(
+            'wild/index.html.twig',
+            ['programs' => $programs]
+        );
     }
 
     /**
@@ -51,54 +51,44 @@ class WildController extends AbstractController
         $program = $this->getDoctrine()
             ->getRepository(Program::class)
             ->findOneBy(['title' => mb_strtolower($slug)]);
-
         if (!$program) {
             throw $this->createNotFoundException(
-                'No program with ' . $slug . ' title, found in program\'s table.'
+                'No program with '.$slug.' title, found in program\'s table.'
             );
         }
 
         return $this->render('wild/show.html.twig', [
             'program' => $program,
-            'slug' => $slug,
+            'slug'  => $slug,
         ]);
     }
 
     /**
-     * @Route("/wild/category/{category}", name="wild_category")
-     * @param int $category
+     * @Route("/wild/category/{categoryName}", name="wild_category")
+     * @param string $categoryName
      * @return Response
      */
-    public function category(int $category): Response
+    public function showByCategory(string $categoryName): Response
     {
-        if (!$category) {
+        if (!$categoryName) {
             throw $this
                 ->createNotFoundException('No category has been sent to find a program in program\'s table.');
         }
-        $categories = $this->selectAllCategories();
 
-        $categoryActive = $this->getDoctrine()
+        $category = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->findOneBy(['id' => $category]);
+            ->findOneBy(['name' => mb_strtolower($categoryName)]);
 
         $selectByCategory = $this->getDoctrine()
             ->getRepository(Program::class)
-            ->findByCategory($category);
+            ->findBy(
+                ['category' => $category],
+                ['id' => 'DESC'],
+                3
+            );
 
         return $this->render('wild/showByCategory.html.twig', [
             'selectByCategory' => $selectByCategory,
-            'categories' => $categories,
-            'categoryActive' => $categoryActive,
         ]);
-    }
-
-    /**
-     * @return array
-     */
-    public function selectAllCategories(): array
-    {
-        return $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findAll();
     }
 }

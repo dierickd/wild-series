@@ -2,14 +2,14 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProgramRepository")
  */
-class Program extends \App\Entity\Category
+class Program
 {
     /**
      * @ORM\Id()
@@ -40,18 +40,12 @@ class Program extends \App\Entity\Category
     private $category;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="category")
-     */
-    private $programs;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Season", mappedBy="program_id")
+     * @ORM\OneToMany(targetEntity="App\Entity\Season", mappedBy="program")
      */
     private $seasons;
 
     public function __construct()
     {
-        $this->programs = new ArrayCollection();
         $this->seasons = new ArrayCollection();
     }
 
@@ -109,47 +103,6 @@ class Program extends \App\Entity\Category
     }
 
     /**
-     * @return Collection|Program[]
-     */
-    public function getPrograms(): Collection
-    {
-        return $this->programs;
-    }
-
-    /**
-     * param Program $program
-     * @param Program $program
-     * @return Program
-     */
-    public function addProgram(Program $program): self
-    {
-        if (!$this->programs->contains($program)) {
-            $this->programs[] = $program;
-            $program->setCategory($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param Program $program
-     * @return Category
-     */
-
-    public function removeProgram(Program $program): self
-    {
-        if ($this->programs->contains($program)) {
-            $this->programs->removeElement($program);
-            // set the owning side to null (unless already changed)
-            if ($program->getCategory() === $this) {
-                $program->setCategory(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Season[]
      */
     public function getSeasons(): Collection
@@ -161,7 +114,7 @@ class Program extends \App\Entity\Category
     {
         if (!$this->seasons->contains($season)) {
             $this->seasons[] = $season;
-            $season->setProgramId($this);
+            $season->setProgram($this);
         }
 
         return $this;
@@ -172,8 +125,8 @@ class Program extends \App\Entity\Category
         if ($this->seasons->contains($season)) {
             $this->seasons->removeElement($season);
             // set the owning side to null (unless already changed)
-            if ($season->getProgramId() === $this) {
-                $season->setProgramId(null);
+            if ($season->getProgram() === $this) {
+                $season->setProgram(null);
             }
         }
 
