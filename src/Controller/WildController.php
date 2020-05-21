@@ -13,15 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class WildController extends AbstractController
 {
     /**
+     * Show all rows from Program’s entity
+     *
      * @Route("/wild", name="wild_index")
-     * @return Response
+     * @return Response A response instance
      */
     public function index(): Response
     {
-        $categories = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findAll();
-
         $programs = $this->getDoctrine()
             ->getRepository(Program::class)
             ->findAll();
@@ -32,10 +30,10 @@ class WildController extends AbstractController
             );
         }
 
-        return $this->render('wild/index.html.twig', [
-            'programs' => $programs,
-            'categories' => $categories,
-        ]);
+        return $this->render(
+            'wild/index.html.twig',
+            ['programs' => $programs]
+        );
     }
 
     /**
@@ -53,21 +51,20 @@ class WildController extends AbstractController
         $program = $this->getDoctrine()
             ->getRepository(Program::class)
             ->findOneBy(['title' => mb_strtolower($slug)]);
-
         if (!$program) {
             throw $this->createNotFoundException(
-                'No program with ' . $slug . ' title, found in program\'s table.'
+                'No program with '.$slug.' title, found in program\'s table.'
             );
         }
 
         return $this->render('wild/show.html.twig', [
             'program' => $program,
-            'slug' => $slug,
+            'slug'  => $slug,
         ]);
     }
 
     /**
-     * @Route("/wild/{categoryName}", name="wild_categoryName")
+     * @Route("/wild/category/{categoryName}", name="wild_category")
      * @param string $categoryName
      * @return Response
      */
@@ -77,17 +74,14 @@ class WildController extends AbstractController
             throw $this
                 ->createNotFoundException('No category has been sent to find a program in program\'s table.');
         }
-        $categories = $this->getDoctrine()
-            ->getRepository(Category::class)
-            ->findAll();
 
         $category = $this->getDoctrine()
             ->getRepository(Category::class)
-            ->findOneByName($categoryName);
+            ->findOneBy(['name' => mb_strtolower($categoryName)]);
 
         $selectByCategory = $this->getDoctrine()
             ->getRepository(Program::class)
-            ->findByCategory(
+            ->findBy(
                 ['category' => $category],
                 ['id' => 'DESC'],
                 3
@@ -95,8 +89,6 @@ class WildController extends AbstractController
 
         return $this->render('wild/showByCategory.html.twig', [
             'selectByCategory' => $selectByCategory,
-            'categories' => $categories,
-            'categoryName' => $category,
         ]);
     }
 }
