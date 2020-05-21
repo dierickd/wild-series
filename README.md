@@ -5,6 +5,7 @@
 ```terminal
 symfony new --full <name_project> --version=lts
 ```
+> **_N'oubli pas de te déplacer dans ton projet après sa création !_**
 
 ## Installation de Webpack
 
