@@ -1,13 +1,63 @@
 {% extends 'base.html.twig' %}
-
-{% block title %}Season | title{% endblock %}
+{% block title %}{{ program.title }}{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>Bonjour</h1>
-        {{ dump(season) }}
-        {{ dump(program) }}
+        <a class="btn btn-dark mb-5" href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}">
+            retour
+        </a>
+        <div class="media">
+            <img class="align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
+            <div class="media-detail">
+                <div class="media-body">
+                    <h1 class="mt-0">{{ program.title }}</h1>
+                    <p>{{ program.summary }}</p>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>Categorie :</td>
+                            <td>{{ program.category.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>Saison :</td>
+                            <td>{{ season.number }}</td>
+                        </tr>
+                        <tr>
+                            <td>Episodes :</td>
+                            <td>{{ episodes | length }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="list-episodes mt-5">
+            {% for i in 0..episodes | length - 1 %}
+                <div class="accordion my-3" id="episode{{ episodes[i].id }}">
+                    <div class="card">
+                        <div class="card-header" id="episode-{{ episodes[i].id }}">
+                            <h2 class="mb-0">
+                                <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse"
+                                        data-target="#episode_{{ episodes[i].number }}" aria-expanded="true"
+                                        aria-controls="episode_{{ episodes[i].number }}">
+                                    Episode {{ episodes[i].number }}
+                                </button>
+                            </h2>
+                        </div>
+
+                        <div id="episode_{{ episodes[i].number }}" class="collapse"
+                             aria-labelledby="episode-{{ episodes[i].id }}"
+                             data-parent="#episode{{ episodes[i].id }}">
+                            <div class="card-body">
+                                <h6 class="font-weight-bold">Titre:</h6>
+                                <p>{{ episodes[i].title }}</p>
+                                <h6 class="font-weight-bold">Synopsis:</h6>
+                                <p>{{ episodes[i].synopsis }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}
-
-
