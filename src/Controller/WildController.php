@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-
 use App\Entity\Category;
 use App\Entity\Program;
 use App\Entity\Season;
@@ -55,7 +54,7 @@ class WildController extends AbstractController
 
         if (!$program) {
             throw $this->createNotFoundException(
-                'No program with '.$slug.' title, found in program\'s table.'
+                'No program with ' . $slug . ' title, found in program\'s table.'
             );
         }
         $seasons = $this->getDoctrine()
@@ -94,6 +93,30 @@ class WildController extends AbstractController
 
         return $this->render('wild/showByCategory.html.twig', [
             'selectByCategory' => $selectByCategory,
+        ]);
+    }
+
+    /**
+     * @Route("/wild/{slug}/season/{id}", name="wild_season")
+     * @param int $id
+     * @return Response
+     */
+    public function showBySeason(int $id): Response
+    {
+        if (!$id) {
+            throw $this
+                ->createNotFoundException('No category has been sent to find a program in program\'s table.');
+        }
+
+        $season = $this->getDoctrine()
+            ->getRepository(Season::class)
+            ->findOneBy(['id' => $id]);
+
+        $program = $season->getProgram();
+
+        return $this->render('wild/showBySeason.html.twig', [
+            'season' => $season,
+            'program' => $program,
         ]);
     }
 }

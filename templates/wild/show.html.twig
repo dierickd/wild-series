@@ -18,7 +18,9 @@
                     <ul class="nav flex-row">
                         {% for season in seasons %}
                             <li class="nav-item">
-                                <a class="nav-link" href="">Saison {{ season.number }}</a>
+                                <a class="nav-link" href="{{ path('wild_season',
+                                    { 'slug': program.title | replace({' ':'-'}), 'id': season.id })
+                                }}">Saison {{ season.number }}</a>
                             </li>
                         {% endfor %}
                     </ul>
