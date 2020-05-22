@@ -54,7 +54,7 @@ body {
   color: $color-light-hover;
 }
 
-a, a:hover {
+a, a:hover, .btn-link, .btn-link:hover, .btn-link:active, .btn-link:visited, .btn-link:target, .btn-link:focus {
   text-decoration: none;
   color: inherit;
 }
@@ -89,4 +89,21 @@ img {
 .active {
   color: $color-dark;
   background-color: $color-light;
+}
+.media-body .table td {
+  border: none;
+}
+.media-body table td:first-child {
+    max-width: 20px;
+}
+
+.list-episodes .card {
+  min-width: 100%;
+}
+.accordion .card-header {
+  background-color: $color-main;
+  color: $color-light;
+}
+.accordion .card-body {
+  color: $color-main;
 }

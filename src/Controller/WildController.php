@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,7 +60,7 @@ class WildController extends AbstractController
         }
         $seasons = $this->getDoctrine()
             ->getRepository(Season::class)
-            ->findByProgram($program);
+            ->findBy(['program' => $program]);
 
         return $this->render('wild/show.html.twig', [
             'program' => $program,
@@ -112,11 +113,18 @@ class WildController extends AbstractController
             ->getRepository(Season::class)
             ->findOneBy(['id' => $id]);
 
-        $program = $season->getProgram();
+        $program = $this->getDoctrine()
+            ->getRepository(Program::class)
+            ->findOneBy(['title' => $season->getProgram()->getTitle()]);
+
+        $episodes = $this->getDoctrine()
+            ->getRepository(Episode::class)
+            ->findBy(['season' => $season]);
 
         return $this->render('wild/showBySeason.html.twig', [
             'season' => $season,
             'program' => $program,
+            'episodes' => $episodes,
         ]);
     }
 }
