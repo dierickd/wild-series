@@ -24,6 +24,11 @@ $ff-title: 'Courgette', cursive;
 // effect
 $effect-transition: all .3s ease;
 
+// space
+$margin: 1rem;
+$margin-sm: $margin - .5;
+$margin-lg: $margin + .5;
+
 body {
   font-family: $ff-main;
   background-color: $color-light;
@@ -65,12 +70,22 @@ img {
 .media img {
   max-width: 400px;
 }
+
+.media .nav-link {
+  background-color: $color-main;
+  color: $color-light;
+  display: inline-block;
+  border-radius: $border-radius;
+  margin: $margin-sm;
+}
+
 .sidebar {
   border-right: 1px solid $color-main;
   background-color: $color-dark;
   color: $color-light;
   min-height: 100vh;
 }
+
 .active {
   color: $color-dark;
   background-color: $color-light;

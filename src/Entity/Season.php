@@ -2,12 +2,13 @@
 
 namespace App\Entity;
 
+use App\Repository\SeasonRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\SeasonRepository")
+ * @ORM\Entity(repositoryClass=SeasonRepository::class)
  */
 class Season
 {
@@ -19,7 +20,7 @@ class Season
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Program", inversedBy="seasons")
+     * @ORM\ManyToOne(targetEntity=Program::class, inversedBy="seasons")
      * @ORM\JoinColumn(nullable=false)
      */
     private $program;
@@ -30,17 +31,17 @@ class Season
     private $number;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $year;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Episode", mappedBy="season")
+     * @ORM\OneToMany(targetEntity=Episode::class, mappedBy="season")
      */
     private $episodes;
 
@@ -83,7 +84,7 @@ class Season
         return $this->year;
     }
 
-    public function setYear(int $year): self
+    public function setYear(?int $year): self
     {
         $this->year = $year;
 
@@ -95,7 +96,7 @@ class Season
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 

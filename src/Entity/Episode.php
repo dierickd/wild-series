@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
+use App\Repository\EpisodeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\EpisodeRepository")
+ * @ORM\Entity(repositoryClass=EpisodeRepository::class)
  */
 class Episode
 {
@@ -17,7 +18,7 @@ class Episode
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\season", inversedBy="episodes")
+     * @ORM\ManyToOne(targetEntity=Season::class, inversedBy="episodes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $season;
@@ -28,12 +29,12 @@ class Episode
     private $title;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $number;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $synopsis;
 
@@ -42,12 +43,12 @@ class Episode
         return $this->id;
     }
 
-    public function getSeason(): ?season
+    public function getSeason(): ?Season
     {
         return $this->season;
     }
 
-    public function setSeason(?season $season): self
+    public function setSeason(?Season $season): self
     {
         $this->season = $season;
 
@@ -71,7 +72,7 @@ class Episode
         return $this->number;
     }
 
-    public function setNumber(int $number): self
+    public function setNumber(?int $number): self
     {
         $this->number = $number;
 
@@ -83,7 +84,7 @@ class Episode
         return $this->synopsis;
     }
 
-    public function setSynopsis(string $synopsis): self
+    public function setSynopsis(?string $synopsis): self
     {
         $this->synopsis = $synopsis;
 
