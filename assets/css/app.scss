@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,400;0,900;1,400&display=swap');
 @import "~bootstrap/scss/bootstrap";
+@import "media";
 
 $fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
@@ -84,6 +85,9 @@ img {
   background-color: $color-dark;
   color: $color-light;
   min-height: 100vh;
+}
+.sidebar .nav-link {
+  padding: $margin-sm;
 }
 
 .active {

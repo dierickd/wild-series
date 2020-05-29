@@ -1,0 +1,12 @@
+@media screen and (max-width: 768px) {
+  .media-body table td:first-child {
+    min-width: 70px;
+  }
+  .media {
+    flex-direction: column;
+  }
+  .row .sidebar {
+    min-width: 100%;
+    min-height: 100%;
+  }
+}
