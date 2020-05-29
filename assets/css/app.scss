@@ -97,6 +97,12 @@ img {
     max-width: 20px;
 }
 
+.list-episodes img {
+  height: 200px;
+  object-fit: cover;
+  object-position: top;
+}
+
 .list-episodes .card {
   min-width: 100%;
 }

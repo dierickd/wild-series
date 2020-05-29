@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Episode{% endblock %}
+
+
+{% block body %}
+    <div class="container">
+        <a href="{{ path('wild_show_season',
+            { 'slug': program.title | replace({' ':'-'}), 'id': season.id }) }}" class="btn btn-dark mb-5">
+            Liste des épisodes
+        </a>
+        <a href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}" class="btn btn-dark mb-5">
+            Accueil de la saison
+        </a>
+        <h1 class="mb-5">{{ program.title }}</h1>
+        <div class="media">
+            <div class="row">
+                <div class="col col-12 col-md-5">
+                    <img class="align-self-start mr-3" src="{{ episode.poster }}" alt="{{ episode.title }} poster">
+                </div>
+                <div class="media-detail col col-12 col-md-7">
+                    <div class="media-body">
+                        <h3>{{ episode.title }}</h3>
+                        <table class="table">
+                            <tbody>
+                            <tr>
+                                <td>Saison :</td>
+                                <td>{{ season.number }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sortie :</td>
+                                <td>{{ season.year }}</td>
+                            </tr>
+                            <tr>
+                                <td>Episode :</td>
+                                <td>{{ episode.number }}</td>
+                            </tr>
+                            <tr>
+                                <td>Categorie :</td>
+                                <td>{{ program.category.name }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p>{{ episode.synopsis }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
