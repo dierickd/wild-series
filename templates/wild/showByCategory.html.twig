@@ -5,12 +5,11 @@
 {% block body %}
     <div class="container-fluid">
         <div class="row">
-
             {% include 'wild/parts/_menuColumn.html.twig' %}
             <div class="col-12 offset-lg-1 col-sm-9 col-md-9 col-lg-9 py-5">
                 <h1>Listes des séries</h1>
                 <div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 my-5">
-                    {% for program in programs %}
+                    {% for program in selectByCategory %}
                         <div class="col mb-4">
                             <a href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}">
                                 <div class="card">

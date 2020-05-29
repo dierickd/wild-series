@@ -1,11 +1,35 @@
 {% extends 'base.html.twig' %}
+{% block title %}{{ program.title }}{% endblock %}
 
 {% block body %}
     <div class="container">
-        {% if slug is empty %}
-            <h1>Aucune série sélectionnée, veuillez choisir une série</h1>
-        {% else %}
-            <h1>{{ slug | replace({'-': ' '}) | title }}</h1>
-        {% endif %}
+        <a href="{{ path('wild_index') }}" class="btn btn-dark mb-5">
+            Toutes les séries
+        </a>
+        <div class="media">
+            <div class="row">
+                <div class="col col-12 col-md-5">
+                    <img class="align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
+                </div>
+                <div class="media-detail col col-12 col-md-7">
+                    <div class="media-body">
+                        <h1 class="mt-0">{{ program.title }}</h1>
+                        <p>{{ program.summary }}</p>
+                        <p>Categorie : {{ program.category.name }}</p>
+                    </div>
+                    <div class="seasons-list">
+                        <ul class="nav flex-row">
+                            {% for season in seasons %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ path('wild_show_season',
+                                        { 'slug': program.title | replace({' ':'-'}), 'id': season.id }) }}">Saison {{ season.number }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
 {% endblock %}

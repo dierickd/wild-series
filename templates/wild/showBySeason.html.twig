@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% block title %}{{ program.title }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <a class="btn btn-dark mb-5" href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}">
+            retour
+        </a>
+        <div class="media">
+            <img class="align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
+            <div class="media-detail">
+                <div class="media-body">
+                    <h1 class="mt-0">{{ program.title }}</h1>
+                    <p>{{ program.summary }}</p>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>Saison :</td>
+                            <td>{{ season.number }}</td>
+                        </tr>
+                        <tr>
+                            <td>Episodes :</td>
+                            <td>{{ episodes | length }}</td>
+                        </tr>
+                        <tr>
+                            <td>Sortie :</td>
+                            <td>{{ season.year }}</td>
+                        </tr>
+                        <tr>
+                            <td>Categorie :</td>
+                            <td>{{ program.category.name }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="list-episodes mt-5">
+            {% for i in 0..episodes | length - 1 %}
+                <div class="card mb-3">
+                    <div class="row no-gutters">
+                        <div class="col-md-3">
+                            <img src="{{ episodes[i].poster }}" class="card-img" alt="{{ episodes[i].title }}">
+                        </div>
+                        <div class="col-md-9">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ episodes[i].title }}</h5>
+                                <p class="card-text">{{ episodes[i].synopsis }}</p>
+                                <p class="card-text"><small class="text-muted">episode {{ episodes[i].number }}</small>
+                                </p>
+                                <div class="action text-right">
+                                    <a class="btn btn-dark btn-sm"
+                                       href="{{ path('wild_show_episode',
+                                           { 'slug': program.title | replace({' ':'-'}),
+                                               'season_number': season.id,
+                                               'id': episodes[i].id
+                                           }) }}">
+                                        Détail
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
