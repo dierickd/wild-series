@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -38,7 +39,7 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/wild/show/{slug}", name="wild_show")
+     * @Route("/wild/show/{slug<[a-zA-Z-]+[0-9]*>}", name="wild_show")
      * @param string $slug
      * @return Response
      */
@@ -58,18 +59,15 @@ class WildController extends AbstractController
                 'No program with ' . $slug . ' title, found in program\'s table.'
             );
         }
-        $seasons = $this->getDoctrine()
-            ->getRepository(Season::class)
-            ->findBy(['program' => $program]);
 
         return $this->render('wild/show.html.twig', [
             'program' => $program,
-            'seasons' => $seasons,
+            'seasons' => $program->getSeasons(),
         ]);
     }
 
     /**
-     * @Route("/wild/category/{categoryName}", name="wild_category")
+     * @Route("/wild/category/{categoryName<[a-zA-Z-]+>}", name="wild_category")
      * @param string $categoryName
      * @return Response
      */
@@ -98,7 +96,7 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/wild/{slug}/season/{id}", name="wild_season")
+     * @Route("/wild/{slug<[a-zA-Z-]+[0-9]*>}/season/{id<[0-9]+>}", name="wild_show_season")
      * @param int $id
      * @return Response
      */
@@ -113,18 +111,31 @@ class WildController extends AbstractController
             ->getRepository(Season::class)
             ->findOneBy(['id' => $id]);
 
-        $program = $this->getDoctrine()
-            ->getRepository(Program::class)
-            ->findOneBy(['title' => $season->getProgram()->getTitle()]);
-
-        $episodes = $this->getDoctrine()
-            ->getRepository(Episode::class)
-            ->findBy(['season' => $season]);
-
         return $this->render('wild/showBySeason.html.twig', [
             'season' => $season,
-            'program' => $program,
-            'episodes' => $episodes,
+            'program' => $season->getProgram(),
+            'episodes' => $season->getEpisodes(),
         ]);
+    }
+
+    /**
+     * @Route("/wild/{slug<[a-zA-Z-]+[0-9]*>}/season/{season_number<[0-9]+>}/episode/{id<[0-9]+>}", name="wild_show_episode")
+     * @ParamConverter("episode", options={"mapping": {"id": "id"}})
+     * @param int     $season_number
+     * @param Episode $episode
+     * @return Response
+     */
+    public function showEpisode(int $season_number, Episode $episode): Response
+    {
+        $season = $this->getDoctrine()
+            ->getRepository(Season::class)
+            ->findOneBy(['id' => $season_number]);
+
+        return $this->render('wild/show/episode.html.twig',
+            [
+                'episode' => $episode,
+                'season' => $episode->getSeason(),
+                'program' => $season->getProgram(),
+            ]);
     }
 }
