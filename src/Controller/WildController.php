@@ -7,6 +7,7 @@ use App\Entity\Category;
 use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
+use App\Repository\ProgramRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,13 +19,12 @@ class WildController extends AbstractController
      * Show all rows from Program’s entity
      *
      * @Route("/wild", name="wild_index")
+     * @param ProgramRepository $programRepository
      * @return Response A response instance
      */
-    public function index(): Response
+    public function index(ProgramRepository $programRepository): Response
     {
-        $programs = $this->getDoctrine()
-            ->getRepository(Program::class)
-            ->findAll();
+        $programs = $programRepository->findAll();
 
         if (!$programs) {
             throw $this->createNotFoundException(
@@ -34,7 +34,9 @@ class WildController extends AbstractController
 
         return $this->render(
             'wild/index.html.twig',
-            ['programs' => $programs]
+            [
+                'programs' => $programs,
+            ]
         );
     }
 
