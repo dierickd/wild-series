@@ -3,7 +3,7 @@
 
 {% block body %}
     <div class="container">
-        <a class="btn btn-dark mb-5" href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}">
+        <a class="btn btn-sm btn-dark mb-5" href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}">
             retour
         </a>
         <div class="media">
@@ -49,7 +49,7 @@
                                 <p class="card-text"><small class="text-muted">episode {{ episodes[i].number }}</small>
                                 </p>
                                 <div class="action text-right">
-                                    <a class="btn btn-dark btn-sm"
+                                    <a class="btn btn-sm btn-dark btn-sm"
                                        href="{{ path('wild_show_episode',
                                            { 'slug': program.title | replace({' ':'-'}),
                                                'season_number': season.id,
