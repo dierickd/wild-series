@@ -12,7 +12,11 @@
 <body>
 {% include 'wild/parts/_navbar.html.twig' %}
 
-{% block body %}{% endblock %}
+<div id="main">
+    {% block body %}{% endblock %}
+</div>
+
+{% include 'wild/parts/_footer.html.twig' %}
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}

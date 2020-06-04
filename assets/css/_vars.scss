@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,400;0,900;1,400&display=swap');
+@import "~bootstrap/scss/bootstrap";
+
+// color
+$primary: #C7A53A;
+$secondary: rgba(250, 137, 0, 1);
+
+// background
+$color-navbar: #343a40;
+$color-dark: #212529;
+$color-main: #424145;
+$color-light: rgba(245, 245, 245, 0.69);
+$color-light-hover: #f5f5f5;
+$color-grey: rgba(142, 140, 140, 0.69);
+
+// font
+$ff-main: 'Roboto', sans-serif;
+$ff-title: 'Courgette', cursive;
+
+// effect
+$effect-transition: all .3s ease;
+
+// space
+$margin: 1rem;
+$margin-sm: $margin - .5;
+$margin-lg: $margin + .5;

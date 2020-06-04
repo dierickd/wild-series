@@ -5,9 +5,12 @@
 {% block body %}
     <div class="container">
         <h1>Créer une nouvelle catégorie</h1>
+        <a class="btn btn-sm btn-dark my-4" href="{{ path('category_index') }}">Retour à la liste</a>
+        <div class="row">
+            <div class="col col-md-4">
+                {{ include('admin/category/_form.html.twig') }}
+            </div>
+        </div>
 
-        {{ include('admin/category/_form.html.twig') }}
-
-        <a class="btn btn-secondary" href="{{ path('category_index') }}">Retour à la liste</a>
     </div>
 {% endblock %}

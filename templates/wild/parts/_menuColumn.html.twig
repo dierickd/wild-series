@@ -8,13 +8,15 @@
                 Tout voir
             </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link"
-               href="{{ path('wild_category', { 'categoryName': 'Horreur' }) }}"
-               title="Catégorie Horreur">
-                <small class="mr-2"><i class="fas fa-arrow-right d-none d-md-inline-block"></i></small>
-                Horreur
-            </a>
-        </li>
+        {% for category in categories %}
+            <li class="nav-item">
+                <a class="nav-link"
+                   href="{{ path('wild_category', { 'categoryName': category.name }) }}"
+                   title="Catégorie {{ category.name }}">
+                    <small class="mr-2"><i class="fas fa-arrow-right d-none d-md-inline-block"></i></small>
+                    {{ category.name }}
+                </a>
+            </li>
+        {% endfor %}
     </ul>
 </div>

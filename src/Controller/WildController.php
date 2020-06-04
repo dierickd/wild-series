@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Category;
 use App\Entity\Episode;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
@@ -19,7 +20,7 @@ class WildController extends AbstractController
     /**
      * Show all rows from Program’s entity
      *
-     * @Route("/wild", name="wild_index")
+     * @Route("/series", name="wild_index")
      * @param ProgramRepository $programRepository
      * @param Request           $request
      * @return Response A response instance
@@ -50,12 +51,13 @@ class WildController extends AbstractController
             [
                 'programs' => $programs,
                 'form' => $form->createView(),
+                'categories' => $this->getCategory(),
             ]
         );
     }
 
     /**
-     * @Route("/wild/show/{slug<[a-zA-Z-]+[0-9]*>}", name="wild_show")
+     * @Route("/series/{slug<[a-zA-Z-:]+[0-9]*>}", name="wild_show")
      * @param string            $slug
      * @param ProgramRepository $programRepository
      * @return Response
@@ -82,7 +84,7 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/wild/category/{categoryName<[a-zA-Z-]+>}", name="wild_category")
+     * @Route("/series/category/{categoryName<[a-zA-Z-]+>}", name="wild_category")
      * @param string             $categoryName
      * @param CategoryRepository $categoryRepository
      * @param ProgramRepository  $programRepository
@@ -110,9 +112,7 @@ class WildController extends AbstractController
         }
 
         $selectByCategory = $programRepository->findBy(
-            ['category' => $category],
-            ['id' => 'DESC'],
-            3
+            ['category' => $category]
         );
 
         if (!$category) {
@@ -123,11 +123,12 @@ class WildController extends AbstractController
 
         return $this->render('wild/showByCategory.html.twig', [
             'selectByCategory' => $selectByCategory,
+            'categories' => $this->getCategory()
         ]);
     }
 
     /**
-     * @Route("/wild/{slug<[a-zA-Z-]+[0-9]*>}/season/{id<[0-9]+>}", name="wild_show_season")
+     * @Route("/series/{slug<[a-zA-Z-:]+[0-9]*>}/{id<[0-9]+>}/season/{number<[0-9]+>}", name="wild_show_season")
      * @param int              $id
      * @param SeasonRepository $seasonRepository
      * @return Response
@@ -145,30 +146,40 @@ class WildController extends AbstractController
             'season' => $season,
             'program' => $season->getProgram(),
             'episodes' => $season->getEpisodes(),
+            'categories' => $this->getCategory()
         ]);
     }
 
     /**
-     * @Route("/wild/{slug<[a-zA-Z-]+[0-9]*>}/season/{season_number<[0-9]+>}/episode/{id<[0-9]+>}", name="wild_show_episode")
+     * @Route("/series/{season_id<[0-9]+>}/{id<[0-9]+>}/{slug<[a-zA-Z-]+[0-9]*>}", name="wild_show_episode")
      * @ParamConverter("episode", options={"mapping": {"id": "id"}})
-     * @param int              $season_number
+     * @param int              $season_id
      * @param Episode          $episode
      * @param SeasonRepository $seasonRepository
      * @return Response
      */
     public function showEpisode(
-        int $season_number,
+        int $season_id,
         Episode $episode,
         SeasonRepository $seasonRepository
     ): Response
     {
-        $season = $seasonRepository->findOneBy(['id' => $season_number]);
+        $season = $seasonRepository->findOneBy(['id' => $season_id]);
 
         return $this->render('wild/show/episode.html.twig',
             [
                 'episode' => $episode,
                 'season' => $episode->getSeason(),
                 'program' => $season->getProgram(),
+                'categories' => $this->getCategory()
             ]);
+    }
+
+    /**
+     * @return Category[]
+     */
+    public function getCategory()
+    {
+        return $this->getDoctrine()->getRepository(Category::class)->findAll(['name' => 'ASC']);
     }
 }

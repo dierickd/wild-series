@@ -1,4 +1,4 @@
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 700px) {
   .media-body table td:first-child {
     min-width: 70px;
   }
@@ -8,5 +8,15 @@
   .row .sidebar {
     min-width: 100%;
     min-height: 100%;
+  }
+  .resp-hidden {
+     display: none;
+   }
+  .resp-show {
+    display: block;
+    font-weight: bold;
+  }
+  table td {
+    display: block;
   }
 }

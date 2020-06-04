@@ -111,6 +111,10 @@ class Season
         return $this->episodes;
     }
 
+    public function getSelectFormString(){
+        return $this->getProgram()->getTitle() . " - saison " . $this->getNumber();
+    }
+
     public function addEpisode(Episode $episode): self
     {
         if (!$this->episodes->contains($episode)) {
