@@ -51,9 +51,9 @@
                                 <div class="action text-right">
                                     <a class="btn btn-sm btn-dark btn-sm"
                                        href="{{ path('wild_show_episode',
-                                           { 'slug': program.title | replace({' ':'-'}),
-                                               'season_number': season.id,
-                                               'id': episodes[i].id
+                                           { 'slug': program.title | replace({' ':'-'}) | lower,
+                                               'season_id': season.id,
+                                               'id': episodes[i].id,
                                            }) }}">
                                         Détail
                                     </a>

@@ -7,6 +7,7 @@
         <h1>Liste des catégories</h1>
 
         <a class="btn btn-sm btn-dark my-5" href="{{ path('admin') }}">Accueil admin</a>
+        <a class="btn btn-sm btn-secondary" href="{{ path('category_new') }}">Nouvelle catégorie</a>
 
         <table class="table table-hover">
             <thead>
@@ -34,6 +35,5 @@
             </tbody>
         </table>
 
-        <a class="btn btn-sm btn-dark" href="{{ path('category_new') }}">Nouvelle catégorie</a>
     </div>
 {% endblock %}
