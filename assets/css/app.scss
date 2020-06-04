@@ -1,37 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,400;0,900;1,400&display=swap');
-@import "~bootstrap/scss/bootstrap";
-
-$fa-font-path: '~@fortawesome/fontawesome-free/webfonts';
-@import '~@fortawesome/fontawesome-free/scss/fontawesome';
-@import '~@fortawesome/fontawesome-free/scss/solid';
-@import '~@fortawesome/fontawesome-free/scss/regular';
-@import '~@fortawesome/fontawesome-free/scss/brands';
-
-// color
-$primary: #C7A53A;
-$secondary: rgba(250, 137, 0, 1);
-
-// background
-$color-dark: #212529;
-$color-main: #424145;
-$color-light: rgba(245, 245, 245, 0.69);
-$color-light-hover: #f5f5f5;
-
-// font
-$ff-main: 'Roboto', sans-serif;
-$ff-title: 'Courgette', cursive;
-
-// effect
-$effect-transition: all .3s ease;
-
-// space
-$margin: 1rem;
-$margin-sm: $margin - .5;
-$margin-lg: $margin + .5;
+@import "reset";
+@import "vars";
+@import "media";
 
 body {
   font-family: $ff-main;
   background-color: $color-light;
+}
+
+#main {
+  min-height: 100vh;
 }
 
 .container {
@@ -86,15 +63,21 @@ img {
   min-height: 100vh;
 }
 
+.sidebar .nav-link {
+  padding: $margin-sm;
+}
+
 .active {
   color: $color-dark;
   background-color: $color-light;
 }
+
 .media-body .table td {
   border: none;
 }
+
 .media-body table td:first-child {
-    max-width: 20px;
+  max-width: 30px;
 }
 
 .list-episodes img {
@@ -106,10 +89,40 @@ img {
 .list-episodes .card {
   min-width: 100%;
 }
-.accordion .card-header {
-  background-color: $color-main;
-  color: $color-light;
+
+.admin-home .fas, .admin-home .fab {
+  padding-top: 25px;
+  text-align: center;
+  font-size: 100px;
 }
-.accordion .card-body {
-  color: $color-main;
+
+.table img {
+  max-width: 120px;
+}
+
+footer {
+  height: 80px;
+  background-color: $color-navbar;
+}
+
+.image-container {
+  width: 100%;
+  height: auto;
+}
+
+#img {
+  text-align: center;
+  background-color: $color-grey;
+  display: block;
+  height: auto;
+  border-radius: 5px;
+  min-height: 200px;
+  box-shadow: $box-shadow;
+}
+
+.resp-show {
+  display: none;
+}
+textarea {
+  min-height: 140px;
 }
