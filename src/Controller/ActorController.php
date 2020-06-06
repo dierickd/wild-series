@@ -17,16 +17,20 @@ class ActorController extends AbstractController
 {
     /**
      * @Route("/", name="actor_index", methods={"GET"})
+     * @param ActorRepository $actorRepository
+     * @return Response
      */
     public function index(ActorRepository $actorRepository): Response
     {
-        return $this->render('actor/index.html.twig', [
+        return $this->render('admin/actor/index.html.twig', [
             'actors' => $actorRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/new", name="actor_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -42,7 +46,7 @@ class ActorController extends AbstractController
             return $this->redirectToRoute('actor_index');
         }
 
-        return $this->render('actor/new.html.twig', [
+        return $this->render('admin/actor/new.html.twig', [
             'actor' => $actor,
             'form' => $form->createView(),
         ]);
@@ -50,16 +54,21 @@ class ActorController extends AbstractController
 
     /**
      * @Route("/{id}", name="actor_show", methods={"GET"})
+     * @param Actor $actor
+     * @return Response
      */
     public function show(Actor $actor): Response
     {
-        return $this->render('actor/show.html.twig', [
+        return $this->render('admin/actor/show.html.twig', [
             'actor' => $actor,
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="actor_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Actor   $actor
+     * @return Response
      */
     public function edit(Request $request, Actor $actor): Response
     {
@@ -72,7 +81,7 @@ class ActorController extends AbstractController
             return $this->redirectToRoute('actor_index');
         }
 
-        return $this->render('actor/edit.html.twig', [
+        return $this->render('admin/actor/edit.html.twig', [
             'actor' => $actor,
             'form' => $form->createView(),
         ]);
@@ -80,6 +89,9 @@ class ActorController extends AbstractController
 
     /**
      * @Route("/{id}", name="actor_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Actor   $actor
+     * @return Response
      */
     public function delete(Request $request, Actor $actor): Response
     {

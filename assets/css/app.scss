@@ -1,6 +1,7 @@
 @import "reset";
 @import "vars";
 @import "media";
+@import "pagination";
 
 body {
   font-family: $ff-main;
@@ -97,7 +98,7 @@ img {
 }
 
 .table img {
-  max-width: 120px;
+  max-width: 70px;
 }
 
 footer {
@@ -123,6 +124,23 @@ footer {
 .resp-show {
   display: none;
 }
+
 textarea {
   min-height: 140px;
+}
+
+.container .select2-container--default .select2-selection--single {
+  height: 100%;
+
+  .select2-selection__rendered {
+    background-color: $color-main;
+    color: $color-light-hover;
+    display: inline-block;
+    margin: 5px;
+    border-radius: $border-radius;
+  }
+}
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: $color-main!important;
+  color: $color-light-hover!important;
 }

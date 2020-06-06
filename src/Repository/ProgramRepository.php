@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Program;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -18,6 +19,30 @@ class ProgramRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Program::class);
     }
+
+    /**
+     * @return Query
+     */
+    public function findAllPrograms(): Query
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'DESC')
+            ->getQuery();
+    }
+
+    /**
+     * @param string $term
+     * @return Query
+     */
+    public function Search(string $term): Query
+    {
+        return $this->createQueryBuilder('s')
+            ->andWhere('s.title LIKE :searchTerm')
+            ->setParameter('searchTerm', '%'.$term.'%')
+            ->orderBy('s.id', 'DESC')
+            ->getQuery();
+    }
+
 
     // /**
     //  * @return Program[] Returns an array of Program objects

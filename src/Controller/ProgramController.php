@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,13 +18,19 @@ class ProgramController extends AbstractController
 {
     /**
      * @Route("/", name="program_index", methods={"GET"})
-     * @param ProgramRepository $programRepository
+     * @param ProgramRepository  $programRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
      * @return Response
      */
-    public function index(ProgramRepository $programRepository): Response
+    public function index(ProgramRepository $programRepository, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('admin/program/index.html.twig', [
-            'programs' => $programRepository->findAll(),
+            'programs' => $paginator->paginate(
+                $programRepository->findAll(),
+                $request->query->getInt('page', 1),
+                10
+            ),
         ]);
     }
 

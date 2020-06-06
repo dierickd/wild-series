@@ -5,8 +5,8 @@
 {% block body %}
     <div class="container mb-5">
         <h1>Liste des programmes</h1>
-        <a class="btn btn-sm btn-dark my-4" href="{{ path('admin') }}">Accueil admin</a>
-        <a class="btn btn-sm btn-secondary" href="{{ path('program_new') }}">Nouveau programme</a>
+        <a class="btn btn-sm btn-outline-dark my-4" href="{{ path('admin') }}">Accueil admin</a>
+        <a class="btn btn-sm btn-dark" href="{{ path('program_new') }}">Nouveau programme</a>
 
         <table class="table table-hover">
             <thead class="resp-hidden">
@@ -33,7 +33,7 @@
                         {{ program.category.name }}
                     </td>
                     <td>
-                        <a class="btn btn-sm btn-secondary" href="{{ path('program_show', {'id': program.id}) }}">Afficher</a>
+                        <a class="btn btn-sm btn-outline-dark" href="{{ path('program_show', {'id': program.id}) }}">Afficher</a>
                         <a class="btn btn-sm btn-dark" href="{{ path('program_edit', {'id': program.id}) }}">Editer</a>
                     </td>
                 </tr>
@@ -44,5 +44,8 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="navigation">
+            {{ knp_pagination_render(programs) }}
+        </div>
     </div>
 {% endblock %}

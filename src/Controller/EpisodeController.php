@@ -7,6 +7,7 @@ use App\Form\EpisodeType;
 use App\Form\ProgramSearchType;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,16 +20,25 @@ class EpisodeController extends AbstractController
 {
     /**
      * @Route("/", name="episode_index", methods={"GET"})
-     * @param EpisodeRepository $episodeRepository
-     * @param ProgramRepository $programRepository
+     * @param EpisodeRepository  $episodeRepository
+     * @param ProgramRepository  $programRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
      * @return Response
      */
     public function index(
         EpisodeRepository $episodeRepository,
-        ProgramRepository $programRepository)
+        ProgramRepository $programRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    )
     {
         return $this->render('admin/episode/index.html.twig', [
-            'episodes' => $episodeRepository->findAll(),
+            'episodes' => $paginator->paginate(
+                $episodeRepository->findAll(),
+                $request->query->getInt('page', 1),
+                10
+            ),
             'programs' => $programRepository->findAll(),
         ]);
     }

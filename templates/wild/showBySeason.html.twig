@@ -36,24 +36,24 @@
             </div>
         </div>
         <div class="list-episodes mt-5">
-            {% for i in 0..episodes | length - 1 %}
+            {% for episode in episodes %}
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-3">
-                            <img src="{{ episodes[i].poster }}" class="card-img" alt="{{ episodes[i].title }}">
+                            <img src="{{ episode.poster }}" class="card-img" alt="{{ episode.title }}">
                         </div>
                         <div class="col-md-9">
                             <div class="card-body">
-                                <h5 class="card-title">{{ episodes[i].title }}</h5>
-                                <p class="card-text">{{ episodes[i].synopsis }}</p>
-                                <p class="card-text"><small class="text-muted">episode {{ episodes[i].number }}</small>
+                                <h5 class="card-title">{{ episode.title }}</h5>
+                                <p class="card-text">{{ episode.synopsis }}</p>
+                                <p class="card-text"><small class="text-muted">episode {{ episode.number }}</small>
                                 </p>
                                 <div class="action text-right">
                                     <a class="btn btn-sm btn-dark btn-sm"
                                        href="{{ path('wild_show_episode',
                                            { 'slug': program.title | replace({' ':'-'}) | lower,
                                                'season_id': season.id,
-                                               'id': episodes[i].id,
+                                               'id': episode.id,
                                            }) }}">
                                         Détail
                                     </a>
@@ -63,6 +63,9 @@
                     </div>
                 </div>
             {% endfor %}
+            <div class="navigation">
+                {{ knp_pagination_render(episodes) }}
+            </div>
         </div>
     </div>
 {% endblock %}

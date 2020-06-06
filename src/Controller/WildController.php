@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Entity\Episode;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
 use App\Repository\CategoryRepository;
@@ -21,16 +22,22 @@ class WildController extends AbstractController
      * Show all rows from Program’s entity
      *
      * @Route("/series", name="wild_index")
-     * @param ProgramRepository $programRepository
-     * @param Request           $request
+     * @param ProgramRepository  $programRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
      * @return Response A response instance
      */
     public function index(
         ProgramRepository $programRepository,
+        PaginatorInterface $paginator,
         Request $request
     ): Response
     {
-        $programs = $programRepository->findAll();
+        $programs = $paginator->paginate(
+            $programRepository->findAllPrograms(),
+            $request->query->getInt('page', 1),
+            10
+        );
 
         if (!$programs) {
             throw $this->createNotFoundException(
@@ -43,7 +50,11 @@ class WildController extends AbstractController
 
         if ($form->isSubmitted()) {
             $data = $form->getData();
-            $programs = $programRepository->findBy(['title' => mb_strtolower($data['searchField'])]);
+            $programs = $paginator->paginate(
+                $programRepository->search(mb_strtolower($data['searchField'])),
+                $request->query->getInt('page', 1),
+                10
+            );
         }
 
         return $this->render(
@@ -129,11 +140,13 @@ class WildController extends AbstractController
 
     /**
      * @Route("/series/{slug<[a-zA-Z-:]+[0-9]*>}/{id<[0-9]+>}/season/{number<[0-9]+>}", name="wild_show_season")
-     * @param int              $id
-     * @param SeasonRepository $seasonRepository
+     * @param int                $id
+     * @param SeasonRepository   $seasonRepository
+     * @param Request            $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function showBySeason(int $id, SeasonRepository $seasonRepository): Response
+    public function showBySeason(int $id, SeasonRepository $seasonRepository, Request $request, PaginatorInterface $paginator): Response
     {
         if (!$id) {
             throw $this
@@ -145,7 +158,11 @@ class WildController extends AbstractController
         return $this->render('wild/showBySeason.html.twig', [
             'season' => $season,
             'program' => $season->getProgram(),
-            'episodes' => $season->getEpisodes(),
+            'episodes' => $paginator->paginate(
+                $season->getEpisodes(),
+                $request->query->getInt('page', 1),
+                10
+            ),
             'categories' => $this->getCategory()
         ]);
     }
