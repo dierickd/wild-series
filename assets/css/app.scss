@@ -1,6 +1,14 @@
 @import "reset";
 @import "vars";
+
+$theme-colors: (
+        "dark": $dark,
+        "secondary": $secondary,
+);
+
+@import "~bootstrap/scss/bootstrap";
 @import "media";
+@import "pagination";
 
 body {
   font-family: $ff-main;
@@ -17,6 +25,23 @@ body {
 
 .bg-dark {
   background-color: $color-main;
+}
+
+.btn-custom {
+  border: 1px solid $dark;
+  padding: $margin-sm / 2 $margin-sm;
+  border-radius: $border-radius;
+  margin-left: $margin-sm;
+  margin-right: $margin-sm;
+}
+
+hr {
+  background-color: $color-light;
+  height: 1px;
+  width: 100%;
+  border: none;
+  margin: $margin-sm;
+  opacity: .5;
 }
 
 .navbar-dark .navbar-nav .nav-link,
@@ -81,9 +106,11 @@ img {
 }
 
 .list-episodes img {
-  height: 200px;
+  height: 100%;
   object-fit: cover;
   object-position: top;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .list-episodes .card {
@@ -97,7 +124,7 @@ img {
 }
 
 .table img {
-  max-width: 120px;
+  max-width: 70px;
 }
 
 footer {
@@ -123,6 +150,36 @@ footer {
 .resp-show {
   display: none;
 }
+
 textarea {
   min-height: 140px;
+}
+
+.container .select2-container--default .select2-selection--single {
+  height: 100%;
+
+  .select2-selection__rendered {
+    background-color: $color-main;
+    color: $color-light-hover;
+    display: inline-block;
+    margin: 5px;
+    border-radius: $border-radius;
+  }
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__choice {
+  background-color: $color-main !important;
+  color: $color-light-hover !important;
+}
+
+.card-actor {
+  max-width: 150px;
+  height: auto;
+  display: inline-block;
+
+  .card-img-actor {
+    height: 75%;
+    object-fit: cover;
+  }
+
 }

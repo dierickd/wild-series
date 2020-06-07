@@ -7,15 +7,10 @@
         <h1>Visualiser</h1>
         <a class="btn btn-sm btn-dark my-4" href="{{ path('program_index') }}">Retour à la liste</a>
 
-        <table class="table table-hover">
+        <table class="table">
             <tbody>
             <tr>
-                <th>Id</th>
-                <td>{{ program.id }}</td>
-            </tr>
-            <tr>
-                <th>Affiche</th>
-                <td>
+                <td colspan="2">
                     <img src="{{ program.poster }}" alt="{{ program.title }}">
                 </td>
             </tr>
@@ -26,6 +21,16 @@
             <tr>
                 <th>Catégorie</th>
                 <td>{{ program.category.name }}</td>
+            </tr>
+            <tr>
+                <th>Acteur</th>
+                <td>
+                    {% for actor in program.actors %}
+                        <span class="btn-custom">{{ actor.name }}</span>
+                    {% else %}
+                        Aucun acteur trouvé
+                    {% endfor %}
+                </td>
             </tr>
             <tr>
                 <th>Résumé</th>

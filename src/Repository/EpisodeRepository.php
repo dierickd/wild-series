@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Episode;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -17,6 +18,16 @@ class EpisodeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Episode::class);
+    }
+
+    /**
+     * @return Query
+     */
+    public function findAllEpisodes(): Query
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.number', 'ASC')
+            ->getQuery();
     }
 
     // /**
