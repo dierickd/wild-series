@@ -2,17 +2,18 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\Collection;
+use App\Repository\ActorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass=ActorRepository::class)
  * @UniqueEntity("name")
  */
-class Category
+class Actor
 {
     /**
      * @ORM\Id()
@@ -22,23 +23,31 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
      * @Assert\Length(
      *     max="255"
      * )
-     * @Assert\NotBlank()
      */
     private $name;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Program::class, inversedBy="actors")
+     */
+    private $programs;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Length(
+     *     max="255"
+     * )
+     */
+    private $image;
 
     public function __construct()
     {
         $this->programs = new ArrayCollection();
     }
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Program", mappedBy="category")
-     */
-    private $programs;
 
     public function getId(): ?int
     {
@@ -65,37 +74,33 @@ class Category
         return $this->programs;
     }
 
-    /**
-     * param Program $program
-     * @param Program $program
-     * @return Category
-     */
     public function addProgram(Program $program): self
     {
         if (!$this->programs->contains($program)) {
             $this->programs[] = $program;
-            $program->setCategory($this);
         }
 
         return $this;
     }
-
-    /**
-     * @param Program $program
-     * @return Category
-     */
 
     public function removeProgram(Program $program): self
     {
         if ($this->programs->contains($program)) {
             $this->programs->removeElement($program);
-            // set the owning side to null (unless already changed)
-            if ($program->getCategory() === $this) {
-                $program->setCategory(null);
-            }
         }
 
         return $this;
     }
 
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
 }

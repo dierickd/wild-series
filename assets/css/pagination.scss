@@ -1,0 +1,19 @@
+.pagination {
+  justify-content: center;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+}
+.pagination .disabled .page-link {
+  opacity: .5;
+}
+.pagination .page-link, .pagination .disabled .page-link {
+  background-color: transparent;
+  border: none;
+  color: $color-main;
+}
+.pagination .active .page-link {
+  background-color: transparent;
+  border: 1px solid $color-main;
+  color: $color-main;
+  border-radius: $border-radius;
+}
