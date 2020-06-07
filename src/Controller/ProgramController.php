@@ -46,6 +46,7 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('create', 'Le programme a été créé avec succès');
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($program);
             $entityManager->flush();
@@ -83,6 +84,7 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->addFlash('modify', 'Modification enregistrée');
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('program_index');
@@ -103,6 +105,7 @@ class ProgramController extends AbstractController
     public function delete(Request $request, Program $program): Response
     {
         if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
+            $this->addFlash('delete', 'Le programme a été supprimé');
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($program);
             $entityManager->flush();

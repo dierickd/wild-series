@@ -28,15 +28,16 @@ class ProgramType extends AbstractType
             ->add('poster',
                 TextType::class, [
                     'label' => 'Affiche',
-                    'attr' => ['class' => 'watch-js'],
+                    'attr' => [
+                        'class' => 'watch-js',
+                    ],
                 ])
             ->add('category', EntityType::class, [
                 'class' => Category::class,
                 'choice_label' => 'name',
-                'multiple' => false,
                 'label' => 'Catégorie'
             ])
-            ->add('actor', EntityType::class, [
+            ->add('actors', EntityType::class, [
                 'class' => Actor::class,
                 'choice_label' => 'name',
                 'multiple' => true,

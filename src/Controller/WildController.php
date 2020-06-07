@@ -6,6 +6,8 @@ namespace App\Controller;
 use App\Entity\Actor;
 use App\Entity\Category;
 use App\Entity\Episode;
+use App\Repository\ActorRepository;
+use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
@@ -202,6 +204,31 @@ class WildController extends AbstractController
     {
         return $this->render('wild/showByActor.html.twig', [
             'actor' => $actor,
+        ]);
+    }
+
+    /**
+     * @Route("/wild/actors", name="wild_all_actors")
+     * @param ActorRepository    $actorRepository
+     * @param CategoryRepository $categoryRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
+     * @return Response
+     */
+    public function showAllActor(
+        ActorRepository $actorRepository,
+        CategoryRepository $categoryRepository,
+        PaginatorInterface $paginator,
+        Request $request
+    ): Response
+    {
+        return $this->render('wild/showAllActors.html.twig', [
+            'actors' => $paginator->paginate(
+                $actorRepository->findAll(),
+                $request->query->getInt('page', 1),
+                10
+            ),
+            'categories' => $categoryRepository->findAll(),
         ]);
     }
 

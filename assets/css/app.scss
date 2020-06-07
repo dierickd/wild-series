@@ -2,8 +2,8 @@
 @import "vars";
 
 $theme-colors: (
-  "dark": $dark,
-  "secondary": $secondary,
+        "dark": $dark,
+        "secondary": $secondary,
 );
 
 @import "~bootstrap/scss/bootstrap";
@@ -33,6 +33,15 @@ body {
   border-radius: $border-radius;
   margin-left: $margin-sm;
   margin-right: $margin-sm;
+}
+
+hr {
+  background-color: $color-light;
+  height: 1px;
+  width: 100%;
+  border: none;
+  margin: $margin-sm;
+  opacity: .5;
 }
 
 .navbar-dark .navbar-nav .nav-link,
@@ -157,7 +166,20 @@ textarea {
     border-radius: $border-radius;
   }
 }
+
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: $color-main!important;
-  color: $color-light-hover!important;
+  background-color: $color-main !important;
+  color: $color-light-hover !important;
+}
+
+.card-actor {
+  max-width: 150px;
+  height: auto;
+  display: inline-block;
+
+  .card-img-actor {
+    height: 75%;
+    object-fit: cover;
+  }
+
 }

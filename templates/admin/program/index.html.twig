@@ -7,7 +7,21 @@
         <h1>Liste des programmes</h1>
         <a class="btn btn-sm btn-outline-dark my-4" href="{{ path('admin') }}">Accueil admin</a>
         <a class="btn btn-sm btn-dark" href="{{ path('program_new') }}">Nouveau programme</a>
-
+        {% for message in app.flashes('create') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('modify') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('delete') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
         <table class="table table-hover">
             <thead class="resp-hidden">
             <tr>

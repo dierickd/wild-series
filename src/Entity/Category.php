@@ -5,10 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @UniqueEntity("name")
  */
 class Category
 {
@@ -21,6 +23,10 @@ class Category
 
     /**
      * @ORM\Column(type="string", length=100)
+     * @Assert\Length(
+     *     max="255"
+     * )
+     * @Assert\NotBlank()
      */
     private $name;
 
@@ -61,6 +67,7 @@ class Category
 
     /**
      * param Program $program
+     * @param Program $program
      * @return Category
      */
     public function addProgram(Program $program): self
