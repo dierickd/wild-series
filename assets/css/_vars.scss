@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital,wght@0,400;0,900;1,400&display=swap');
-@import "~bootstrap/scss/bootstrap";
+
 
 // color
-$primary: #C7A53A;
+$dark: #424145;
 $secondary: rgba(250, 137, 0, 1);
 
 // background
 $color-navbar: #343a40;
 $color-dark: #212529;
-$color-main: #424145;
+$color-main: $dark;
 $color-light: rgba(245, 245, 245, 0.69);
 $color-light-hover: #f5f5f5;
 $color-grey: rgba(142, 140, 140, 0.69);

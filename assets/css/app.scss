@@ -1,5 +1,12 @@
 @import "reset";
 @import "vars";
+
+$theme-colors: (
+  "dark": $dark,
+  "secondary": $secondary,
+);
+
+@import "~bootstrap/scss/bootstrap";
 @import "media";
 @import "pagination";
 
@@ -18,6 +25,14 @@ body {
 
 .bg-dark {
   background-color: $color-main;
+}
+
+.btn-custom {
+  border: 1px solid $dark;
+  padding: $margin-sm / 2 $margin-sm;
+  border-radius: $border-radius;
+  margin-left: $margin-sm;
+  margin-right: $margin-sm;
 }
 
 .navbar-dark .navbar-nav .nav-link,
@@ -82,9 +97,11 @@ img {
 }
 
 .list-episodes img {
-  height: 200px;
+  height: 100%;
   object-fit: cover;
   object-position: top;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .list-episodes .card {

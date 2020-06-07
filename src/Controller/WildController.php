@@ -3,6 +3,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Actor;
 use App\Entity\Category;
 use App\Entity\Episode;
 use Knp\Component\Pager\PaginatorInterface;
@@ -190,6 +191,18 @@ class WildController extends AbstractController
                 'program' => $season->getProgram(),
                 'categories' => $this->getCategory()
             ]);
+    }
+
+    /**
+     * @Route("/actor/{id}/{slug<[a-zA-Z-]+>}", name="wild_actor")
+     * @param Actor $actor
+     * @return Response
+     */
+    public function showByActor(Actor $actor): Response
+    {
+        return $this->render('wild/showByActor.html.twig', [
+            'actor' => $actor,
+        ]);
     }
 
     /**

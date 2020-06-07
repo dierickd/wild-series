@@ -3,7 +3,8 @@
 
 {% block body %}
     <div class="container">
-        <a class="btn btn-sm btn-dark mb-5" href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}">
+        <a class="btn btn-sm btn-dark mb-5"
+           href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}">
             retour
         </a>
         <div class="media">
@@ -30,6 +31,20 @@
                             <td>Categorie :</td>
                             <td>{{ program.category.name }}</td>
                         </tr>
+                        <tr>
+                            <td>Acteurs :</td>
+                            <td>
+                                {% for actor in program.actors %}
+                                    <a class="btn-custom"
+                                       href="{{ path('wild_actor',
+                                           {'slug': actor.name | replace({' ': '-'}) | lower,
+                                               'id': actor.id,
+                                           }) }}">
+                                        {{ actor.name }}
+                                    </a>
+                                {% endfor %}
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -46,7 +61,8 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ episode.title }}</h5>
                                 <p class="card-text">{{ episode.synopsis }}</p>
-                                <p class="card-text"><small class="text-muted">episode {{ episode.number }}</small>
+                                <p class="card-text">
+                                    <small class="text-muted">episode {{ episode.number }}</small>
                                 </p>
                                 <div class="action text-right">
                                     <a class="btn btn-sm btn-dark btn-sm"
