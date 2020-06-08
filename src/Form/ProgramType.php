@@ -42,6 +42,8 @@ class ProgramType extends AbstractType
                 'choice_label' => 'name',
                 'multiple' => true,
                 'label' => 'Acteurs',
+                'expanded' => true,
+                'by_reference' => false,
             ])
         ;
     }
