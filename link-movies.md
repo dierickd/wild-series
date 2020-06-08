@@ -11,3 +11,5 @@
 [13 - Symfony : Validation](https://drive.google.com/file/d/1IHSdmcWDfKQHiGeQv_3ttqLgpLZijAAu/view?usp=sharing)
 
 [14 - Symfony : Doctrine relations “Many-To-Many”](https://drive.google.com/file/d/1Qw3RzO5WjrBF8SL22S_tRgdIIg5r5F4w/view?usp=sharing)
+
+[15 - Symfony : EntityType](https://drive.google.com/file/d/1p-E2u0foCl0MQTTEl4PMVmGfh6LcFzrE/view?usp=sharing)
