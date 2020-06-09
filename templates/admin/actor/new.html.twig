@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Actor{% endblock %}
+{% block title %}Nouvel acteur{% endblock %}
 
 {% block body %}
     <div class="container">
         <h1>Nouvel acteur</h1>
         <a class="btn btn-sm btn-dark my-4" href="{{ path('actor_index') }}">Retour</a>
-
-        {{ include('admin/actor/_form.html.twig') }}
-
+        <div class="row">
+            <div class="col-md-4 image-container mb-3">
+                <img id="img" src="" alt="image non disponible">
+            </div>
+            <div class="col-md-8">
+                {{ include('admin/actor/_form.html.twig') }}
+            </div>
+        </div>
     </div>
 {% endblock %}

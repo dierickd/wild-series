@@ -17,9 +17,13 @@
         </a>
         <h1 class="mb-5">{{ episode.title }}</h1>
         <div class="media">
-            <div class="row">
+            <div class="row actor-card">
                 <div class="col col-12 col-md-5">
-                    <img class="align-self-start mr-3" src="{{ episode.poster }}" alt="{{ episode.title }} poster">
+                    {% if episode.poster %}
+                        <img class="align-self-start mr-3" src="{{ episode.poster }}" alt="{{ episode.title }}">
+                    {% else %}
+                        <img class="align-self-start mr-3 card-img-actor-default" src="{{ asset('build/images/movie.408ea2dd.png') }}" alt="{{ episode.title }}">
+                    {% endif %}
                 </div>
                 <div class="media-detail col col-12 col-md-7">
                     <div class="media-body">
