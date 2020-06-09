@@ -14,7 +14,8 @@ class ProgramSearchType extends AbstractType
         [
             'label' => false,
             'attr' => [
-                'placeholder' => 'Rechercher une vidéo'
+                'placeholder' => 'Rechercher une vidéo',
+                'id' => 'inputSearch'
             ]
         ]);
     }

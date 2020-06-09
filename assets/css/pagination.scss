@@ -9,11 +9,11 @@
 .pagination .page-link, .pagination .disabled .page-link {
   background-color: transparent;
   border: none;
-  color: $color-main;
+  color: $dark;
 }
 .pagination .active .page-link {
   background-color: transparent;
-  border: 1px solid $color-main;
-  color: $color-main;
+  border: 1px solid $dark;
+  color: $dark;
   border-radius: $border-radius;
 }

@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Actor;
 use App\Form\ActorType;
 use App\Repository\ActorRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,13 +19,19 @@ class ActorController extends AbstractController
 {
     /**
      * @Route("/", name="actor_index", methods={"GET"})
-     * @param ActorRepository $actorRepository
+     * @param ActorRepository    $actorRepository
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
      * @return Response
      */
-    public function index(ActorRepository $actorRepository): Response
+    public function index(ActorRepository $actorRepository, PaginatorInterface $paginator, Request $request): Response
     {
         return $this->render('admin/actor/index.html.twig', [
-            'actors' => $actorRepository->findAll(),
+            'actors' => $paginator->paginate(
+                $actorRepository->findAll(),
+                $request->query->getInt('page', 1),
+                15
+            )
         ]);
     }
 
