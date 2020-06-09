@@ -10,7 +10,7 @@
 
                 <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-6 my-5">
                     {% for actor in actors %}
-                        <div class="col mb-4">
+                        <div class="col mb-4 actor-card">
                             <a href="{{ path('wild_actor',
                                 {'slug': actor.name | replace({' ': '-'}) | lower,
                                     'id': actor.id,

@@ -12,7 +12,6 @@
         <table class="table table-hover">
             <thead>
             <tr>
-                <th>Id</th>
                 <th>Name</th>
                 <th>actions</th>
             </tr>
@@ -20,7 +19,6 @@
             <tbody>
             {% for category in categories %}
                 <tr>
-                    <td>{{ category.id }}</td>
                     <td>{{ category.name }}</td>
                     <td>
                         <a class="btn btn-sm btn-outline-dark" href="{{ path('category_show', {'id': category.id}) }}">Afficher</a>

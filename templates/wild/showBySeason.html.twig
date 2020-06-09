@@ -35,13 +35,15 @@
                             <td>Acteurs :</td>
                             <td>
                                 {% for actor in program.actors %}
-                                    <a class="btn-custom"
-                                       href="{{ path('wild_actor',
-                                           {'slug': actor.name | replace({' ': '-'}) | lower,
-                                               'id': actor.id,
-                                           }) }}">
-                                        {{ actor.name }}
-                                    </a>
+                                    <p class="actor-wrapper">
+                                        <a class="btn-custom"
+                                           href="{{ path('wild_actor',
+                                               {'slug': actor.name | replace({' ': '-'}) | lower,
+                                                   'id': actor.id,
+                                               }) }}">
+                                            {{ actor.name }}
+                                        </a>
+                                    </p>
                                 {% endfor %}
                             </td>
                         </tr>
@@ -52,7 +54,7 @@
         </div>
         <div class="list-episodes mt-5">
             {% for episode in episodes %}
-                <div class="card mb-3">
+                <div class="card mb-3 actor-card">
                     <div class="row no-gutters">
                         <div class="col-md-3">
                             <img src="{{ episode.poster ?? asset('build/images/movie.408ea2dd.png') }}"

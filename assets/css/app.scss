@@ -102,7 +102,8 @@ img {
 }
 
 .media-body table td:first-child {
-  max-width: 30px;
+  min-width: 120px;
+  font-weight: bold;
 }
 
 .list-episodes img {
@@ -172,14 +173,26 @@ textarea {
   color: $color-light-hover !important;
 }
 
-.card-actor {
-  max-width: 150px;
-  height: auto;
-  display: inline-block;
+.actor-card {
+  min-height: 200px;
 
-  .card-img-actor {
-    height: 75%;
-    object-fit: cover;
+  .card-actor {
+    max-width: 150px;
+    height: auto;
+    display: inline-block;
+
+    .card-img-actor {
+      height: 75%;
+      object-fit: cover;
+    }
   }
 
+  .card-img-actor-default {
+    opacity: .2;
+    padding: 15px;
+  }
+}
+
+.actor-wrapper {
+  display: inline-block;
 }

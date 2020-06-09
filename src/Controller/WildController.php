@@ -99,7 +99,11 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/series/category/{categoryName<[a-zA-Z-]+>}", name="wild_category")
+     * @Route("/series/category/{categoryName}",
+     *      name="wild_category",
+     *      requirements={"categoryName"="[A-Za-z'àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+"},
+     *     options={"utf8": true}
+     * )
      * @param string             $categoryName
      * @param CategoryRepository $categoryRepository
      * @param ProgramRepository  $programRepository
@@ -150,7 +154,12 @@ class WildController extends AbstractController
      * @param PaginatorInterface $paginator
      * @return Response
      */
-    public function showBySeason(int $id, SeasonRepository $seasonRepository, Request $request, PaginatorInterface $paginator): Response
+    public function showBySeason(
+        int $id,
+        SeasonRepository $seasonRepository,
+        Request $request,
+        PaginatorInterface $paginator
+    ): Response
     {
         if (!$id) {
             throw $this
@@ -197,7 +206,11 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/actor/{id}/{slug<[a-zA-Z-]+>}", name="wild_actor")
+     * @Route("/actor/{id}/{slug}",
+     *     name="wild_actor",
+     *     requirements={"slug"="[A-Za-z'àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+"},
+     *     requirements={"id"="\d+"},
+     *     options={"utf8": true})
      * @param Actor $actor
      * @return Response
      */
@@ -227,7 +240,7 @@ class WildController extends AbstractController
             'actors' => $paginator->paginate(
                 $actorRepository->findAll(),
                 $request->query->getInt('page', 1),
-                10
+                12
             ),
             'categories' => $categoryRepository->findAll(),
         ]);
