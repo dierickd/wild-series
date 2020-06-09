@@ -18,15 +18,16 @@
                         <p>Categorie : {{ program.category.name }}</p>
                         <p>Acteurs :
                             {% for actor in program.actors %}
-                                <a class="btn-custom"
-                                   href="{{ path('wild_actor',
-                                       {'slug': actor.name | replace({' ': '-'}) | lower,
-                                           'id': actor.id,
-                                       }) }}">
-                                    {{ actor.name }}
-                                </a>
-                            {% endfor %}
+                        <p class="actor-wrapper">
+                            <a class="btn-custom"
+                               href="{{ path('wild_actor',
+                                   {'slug': actor.name | replace({' ': '-'}) | lower,
+                                       'id': actor.id,
+                                   }) }}">
+                                {{ actor.name }}
+                            </a>
                         </p>
+                        {% endfor %}
                     </div>
                     <div class="seasons-list mb-5">
                         <ul class="nav flex-row mt-5">
