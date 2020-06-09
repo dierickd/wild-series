@@ -9,6 +9,7 @@ use App\Entity\Episode;
 use App\Repository\ActorRepository;
 use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
 use App\Repository\CategoryRepository;

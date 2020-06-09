@@ -8,7 +8,7 @@
             retour
         </a>
         <div class="media">
-            <img class="align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
+            <img class="image-shadow align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
             <div class="media-detail">
                 <div class="media-body">
                     <h1 class="mt-0">{{ program.title }}</h1>
@@ -55,7 +55,9 @@
                 <div class="card mb-3">
                     <div class="row no-gutters">
                         <div class="col-md-3">
-                            <img src="{{ episode.poster }}" class="card-img" alt="{{ episode.title }}">
+                            <img src="{{ episode.poster ?? asset('build/images/movie.408ea2dd.png') }}"
+                                 class="card-img {{ episode.poster is not defined ? "" : "card-img-actor-default" }}"
+                                 alt="{{ episode.title }}">
                         </div>
                         <div class="col-md-9">
                             <div class="card-body">
