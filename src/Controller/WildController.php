@@ -7,9 +7,7 @@ use App\Entity\Actor;
 use App\Entity\Category;
 use App\Entity\Episode;
 use App\Repository\ActorRepository;
-use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
 use App\Repository\CategoryRepository;
@@ -72,7 +70,7 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/series/{slug<[a-zA-Z-:]+[0-9]*>}", name="wild_show")
+     * @Route("/series/{slug<[a-zA-Z-]+[0-9]*>}", name="wild_show")
      * @param string            $slug
      * @param ProgramRepository $programRepository
      * @return Response
@@ -83,8 +81,7 @@ class WildController extends AbstractController
             throw $this
                 ->createNotFoundException('Le programme recherché n\a pas été trouvé !');
         }
-        $slug = str_replace("-", ' ', ucwords(trim(strip_tags($slug)), "-"));
-        $program = $programRepository->findOneBy(['title' => mb_strtolower($slug)]);
+        $program = $programRepository->findOneBy(['slug' => mb_strtolower($slug)]);
 
         if (!$program) {
             throw $this->createNotFoundException(
@@ -147,7 +144,7 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/series/{slug<[a-zA-Z-:]+[0-9]*>}/{id<[0-9]+>}/season/{number<[0-9]+>}", name="wild_show_season")
+     * @Route("/series/{slug<[a-zA-Z-]+[0-9]*>}/{id<[0-9]+>}/season/{number<[0-9]+>}", name="wild_show_season")
      * @param int                $id
      * @param SeasonRepository   $seasonRepository
      * @param Request            $request
