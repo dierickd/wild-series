@@ -4,7 +4,7 @@
 {% block body %}
     <div class="container">
         <a class="btn btn-sm btn-dark mb-5"
-           href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) }}">
+           href="{{ path('wild_show', { 'slug': program.slug | lower }) }}">
             retour
         </a>
         <div class="media">
@@ -71,7 +71,7 @@
                                 <div class="action text-right">
                                     <a class="btn btn-sm btn-dark btn-sm"
                                        href="{{ path('wild_show_episode',
-                                           { 'slug': program.title | replace({' ':'-'}) | lower,
+                                           { 'slug': program.slug | lower,
                                                'season_id': season.id,
                                                'id': episode.id,
                                            }) }}">

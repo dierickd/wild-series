@@ -66,8 +66,20 @@ img {
 }
 
 .card {
-  max-width: 230px;
+  width: 100%;
+
+  .card-body {
+    height: 125px;
+  }
+  .image {
+    height: 100%;
+  }
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
 }
+
 
 .media img {
   max-width: 400px;
