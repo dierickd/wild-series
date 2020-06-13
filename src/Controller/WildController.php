@@ -3,16 +3,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Actor;
+
 use App\Entity\Category;
-use App\Entity\Episode;
-use App\Repository\ActorRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProgramRepository;
+use App\Repository\EpisodeRepository;
 use App\Repository\SeasonRepository;
+use App\Repository\ActorRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -178,43 +178,42 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/series/{season_id<[0-9]+>}/{id<[0-9]+>}/{slug<[a-zA-Z-]+[0-9]*>}", name="wild_show_episode")
-     * @ParamConverter("episode", options={"mapping": {"id": "id"}})
-     * @param int              $season_id
-     * @param Episode          $episode
-     * @param SeasonRepository $seasonRepository
+     * @Route("/series/{slug<[a-zA-Z-]+[0-9]*>}/{episode<[a-zA-Z-]+[0-9]*>}", name="wild_show_episode")
+     * @ParamConverter("episode", options={"mapping": {"slug": "episode"}})
+     * @param EpisodeRepository $episodeRepository
+     * @param                   $episode
      * @return Response
      */
     public function showEpisode(
-        int $season_id,
-        Episode $episode,
-        SeasonRepository $seasonRepository
+        EpisodeRepository $episodeRepository, $episode
     ): Response
     {
-        $season = $seasonRepository->findOneBy(['id' => $season_id]);
+        $episode = $episodeRepository->findOneBy(['slug' => $episode]);
 
         return $this->render('wild/show/episode.html.twig',
             [
                 'episode' => $episode,
                 'season' => $episode->getSeason(),
-                'program' => $season->getProgram(),
+                'program' => $episode->getSeason()->getProgram(),
                 'categories' => $this->getCategory()
             ]);
     }
 
     /**
-     * @Route("/actor/{id}/{slug}",
-     *     name="wild_actor",
-     *     requirements={"slug"="[A-Za-z-]*"},
-     *     requirements={"id"="\d+"},
-     *     options={"utf8": true})
-     * @param Actor $actor
+     * @Route("/wild/actor/{slug<[a-zA-Z-]+>}", name="wild_actor")
+     * @ParamConverter("actor", options={"mapping": {"slug": "slug"}})
+     * @param ActorRepository $actorRepository
+     * @param                 $slug
      * @return Response
      */
-    public function showByActor(Actor $actor): Response
+    public function showByActor(
+        ActorRepository $actorRepository, $slug
+    ): Response
     {
+        $actor = $actorRepository->findOneBy(['slug' => $slug]);
+
         return $this->render('wild/showByActor.html.twig', [
-            'actor' => $actor,
+            'actor' => $actor
         ]);
     }
 

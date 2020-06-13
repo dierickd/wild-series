@@ -13,7 +13,6 @@
                         <div class="col mb-4 actor-card">
                             <a href="{{ path('wild_actor',
                                 {'slug': actor.slug | lower,
-                                    'id': actor.id,
                                 }) }}">
                                 <div class="card card-actor h-100">
                                     <img src="{{ actor.image ?? asset('build/images/actor.6ddea756.png') }}"

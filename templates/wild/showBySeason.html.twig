@@ -38,8 +38,7 @@
                                     <p class="actor-wrapper">
                                         <a class="btn-custom"
                                            href="{{ path('wild_actor',
-                                               {'slug': actor.name | replace({' ': '-'}) | lower,
-                                                   'id': actor.id,
+                                               {'slug': actor.slug | lower,
                                                }) }}">
                                             {{ actor.name }}
                                         </a>
@@ -72,8 +71,7 @@
                                     <a class="btn btn-sm btn-dark btn-sm"
                                        href="{{ path('wild_show_episode',
                                            { 'slug': program.slug | lower,
-                                               'season_id': season.id,
-                                               'id': episode.id,
+                                               'episode': episode.slug,
                                            }) }}">
                                         Détail
                                     </a>
