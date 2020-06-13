@@ -4,7 +4,7 @@
 namespace App\Controller;
 
 
-use App\Slugify;
+use App\Service\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

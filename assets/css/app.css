@@ -1,21 +1,18 @@
 /*
-Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.
-        on line 9 of app.scss
+Error: File to import not found or unreadable: mixins.
+        on line 3 of app.scss
 
-4: $theme-colors: (
-5:         "dark": $dark,
-6:         "secondary": $secondary,
-7: );
-8: 
-9: @import "~bootstrap/scss/bootstrap";
-10: @import "media";
-11: @import "pagination";
-12: 
-13: body {
-14:   font-family: $ff-main;
+1: @import "reset";
+2: @import "vars";
+3: @import "mixins";
+4: 
+5: $theme-colors: (
+6:         "dark": $dark,
+7:         "secondary": $secondary,
+8: );
 
 Backtrace:
-app.scss:9
+app.scss:3
 /usr/lib/ruby/vendor_ruby/sass/tree/import_node.rb:67:in `rescue in import'
 /usr/lib/ruby/vendor_ruby/sass/tree/import_node.rb:44:in `import'
 /usr/lib/ruby/vendor_ruby/sass/tree/import_node.rb:28:in `imported_file'
@@ -51,4 +48,4 @@ app.scss:9
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.\A         on line 9 of app.scss\A \A 4: $theme-colors: (\A 5:         \"dark\": $dark,\A 6:         \"secondary\": $secondary,\A 7: );\A 8: \A 9: @import \"~bootstrap/scss/bootstrap\";\A 10: @import \"media\";\A 11: @import \"pagination\";\A 12: \A 13: body {\A 14:   font-family: $ff-main;"; }
+  content: "Error: File to import not found or unreadable: mixins.\A         on line 3 of app.scss\A \A 1: @import \"reset\";\A 2: @import \"vars\";\A 3: @import \"mixins\";\A 4: \A 5: $theme-colors: (\A 6:         \"dark\": $dark,\A 7:         \"secondary\": $secondary,\A 8: );"; }

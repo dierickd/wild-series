@@ -205,7 +205,7 @@ class WildController extends AbstractController
     /**
      * @Route("/actor/{id}/{slug}",
      *     name="wild_actor",
-     *     requirements={"slug"="[A-Za-z'àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+"},
+     *     requirements={"slug"="[A-Za-z-]*"},
      *     requirements={"id"="\d+"},
      *     options={"utf8": true})
      * @param Actor $actor
