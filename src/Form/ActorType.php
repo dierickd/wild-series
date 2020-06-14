@@ -27,6 +27,7 @@ class ActorType extends AbstractType
             ->add('image', TextType::class, [
                 'attr' => ['class' => 'watch-js'],
             ])
+            ->add('slug', TextType::class, ['required' => false])
         ;
     }
 

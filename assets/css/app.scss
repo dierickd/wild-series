@@ -1,5 +1,6 @@
 @import "reset";
 @import "vars";
+@import "mixins";
 
 $theme-colors: (
         "dark": $dark,
@@ -65,9 +66,20 @@ img {
   width: 100%;
 }
 
-.card {
-  max-width: 230px;
+.card-poster {
+  width: 100%;
+
+  .card-body {
+    height: 125px;
+  }
+  .image {
+    height: 100%;
+  }
+  img {
+    @include card-poster(100%);
+  }
 }
+
 
 .media img {
   max-width: 400px;

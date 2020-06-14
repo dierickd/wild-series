@@ -25,11 +25,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('images/movie', './assets/images/movie.png')
-<<<<<<< HEAD
     .addEntry('images/actor', './assets/images/actor.png')
-=======
-    .addEntry('search', './assets/js/search.js')
->>>>>>> 737c156bad40bfdbbc2f7bd2368f8602514cbe24
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

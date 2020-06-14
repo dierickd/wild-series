@@ -6,13 +6,13 @@
 {% block body %}
     <div class="container">
         <a href="{{ path('wild_show_season',
-            { 'slug': program.title | replace({' ':'-'}) | lower,
+            { 'slug': program.slug | lower,
                 'id': season.id,
                 'number': season.number })
         }}" class="btn btn-sm btn-dark mb-5">
             Liste des épisodes
         </a>
-        <a href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) | lower }) }}" class="btn btn-sm btn-custom mb-5">
+        <a href="{{ path('wild_show', { 'slug': program.slug | lower }) }}" class="btn btn-sm btn-custom mb-5">
             Accueil de la saison
         </a>
         <h1 class="mb-5">{{ episode.title }}</h1>
@@ -35,12 +35,12 @@
                                 <td>{{ season.number }}</td>
                             </tr>
                             <tr>
-                                <td>Sortie :</td>
-                                <td>{{ season.year }}</td>
-                            </tr>
-                            <tr>
                                 <td>Episode :</td>
                                 <td>{{ episode.number }}</td>
+                            </tr>
+                            <tr>
+                                <td>Sortie :</td>
+                                <td>{{ season.year }}</td>
                             </tr>
                             <tr>
                                 <td>Categorie :</td>

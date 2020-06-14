@@ -7,6 +7,8 @@ use App\Form\EpisodeType;
 use App\Form\ProgramSearchType;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
+use App\Service\Slugify;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,17 +47,21 @@ class EpisodeController extends AbstractController
 
     /**
      * @Route("/new", name="episode_new", methods={"GET","POST"})
-     * @param Request $request
+     * @param Request                $request
+     * @param EntityManagerInterface $entityManager
+     * @param Slugify                $slugify
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
         $episode = new Episode();
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
+            $this->getDoctrine()->getManager();
+
+            $episode->setSlug($slugify->generate($episode->getTitle()));
             $entityManager->persist($episode);
             $entityManager->flush();
 
@@ -82,17 +88,23 @@ class EpisodeController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="episode_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param Episode $episode
+     * @param Request                $request
+     * @param Episode                $episode
+     * @param Slugify                $slugify
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function edit(Request $request, Episode $episode): Response
+    public function edit(Request $request, Episode $episode, Slugify $slugify, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(EpisodeType::class, $episode);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->getDoctrine()->getManager();
+
+            $episode->setSlug($slugify->generate($episode->getTitle()));
+            $entityManager->persist($episode);
+            $entityManager->flush();
 
             return $this->redirectToRoute('episode_index');
         }
