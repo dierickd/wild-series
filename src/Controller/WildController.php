@@ -3,17 +3,16 @@
 
 namespace App\Controller;
 
-use App\Entity\Actor;
+
 use App\Entity\Category;
-use App\Entity\Episode;
-use App\Repository\ActorRepository;
-use Doctrine\ORM\Query;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProgramRepository;
+use App\Repository\EpisodeRepository;
 use App\Repository\SeasonRepository;
+use App\Repository\ActorRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -71,7 +70,7 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/series/{slug<[a-zA-Z-:]+[0-9]*>}", name="wild_show")
+     * @Route("/series/{slug<[a-zA-Z-]+[0-9]*>}", name="wild_show")
      * @param string            $slug
      * @param ProgramRepository $programRepository
      * @return Response
@@ -82,8 +81,7 @@ class WildController extends AbstractController
             throw $this
                 ->createNotFoundException('Le programme recherché n\a pas été trouvé !');
         }
-        $slug = str_replace("-", ' ', ucwords(trim(strip_tags($slug)), "-"));
-        $program = $programRepository->findOneBy(['title' => mb_strtolower($slug)]);
+        $program = $programRepository->findOneBy(['slug' => mb_strtolower($slug)]);
 
         if (!$program) {
             throw $this->createNotFoundException(
@@ -146,7 +144,7 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/series/{slug<[a-zA-Z-:]+[0-9]*>}/{id<[0-9]+>}/season/{number<[0-9]+>}", name="wild_show_season")
+     * @Route("/series/{slug<[a-zA-Z-]+[0-9]*>}/{id<[0-9]+>}/season/{number<[0-9]+>}", name="wild_show_season")
      * @param int                $id
      * @param SeasonRepository   $seasonRepository
      * @param Request            $request
@@ -180,43 +178,42 @@ class WildController extends AbstractController
     }
 
     /**
-     * @Route("/series/{season_id<[0-9]+>}/{id<[0-9]+>}/{slug<[a-zA-Z-]+[0-9]*>}", name="wild_show_episode")
-     * @ParamConverter("episode", options={"mapping": {"id": "id"}})
-     * @param int              $season_id
-     * @param Episode          $episode
-     * @param SeasonRepository $seasonRepository
+     * @Route("/series/{slug<[a-zA-Z-]+[0-9]*>}/{episode<[a-zA-Z-]+[0-9]*>}", name="wild_show_episode")
+     * @ParamConverter("episode", options={"mapping": {"slug": "episode"}})
+     * @param EpisodeRepository $episodeRepository
+     * @param                   $episode
      * @return Response
      */
     public function showEpisode(
-        int $season_id,
-        Episode $episode,
-        SeasonRepository $seasonRepository
+        EpisodeRepository $episodeRepository, $episode
     ): Response
     {
-        $season = $seasonRepository->findOneBy(['id' => $season_id]);
+        $episode = $episodeRepository->findOneBy(['slug' => $episode]);
 
         return $this->render('wild/show/episode.html.twig',
             [
                 'episode' => $episode,
                 'season' => $episode->getSeason(),
-                'program' => $season->getProgram(),
+                'program' => $episode->getSeason()->getProgram(),
                 'categories' => $this->getCategory()
             ]);
     }
 
     /**
-     * @Route("/actor/{id}/{slug}",
-     *     name="wild_actor",
-     *     requirements={"slug"="[A-Za-z'àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+"},
-     *     requirements={"id"="\d+"},
-     *     options={"utf8": true})
-     * @param Actor $actor
+     * @Route("/wild/actor/{slug<[a-zA-Z-]+>}", name="wild_actor")
+     * @ParamConverter("actor", options={"mapping": {"slug": "slug"}})
+     * @param ActorRepository $actorRepository
+     * @param                 $slug
      * @return Response
      */
-    public function showByActor(Actor $actor): Response
+    public function showByActor(
+        ActorRepository $actorRepository, $slug
+    ): Response
     {
+        $actor = $actorRepository->findOneBy(['slug' => $slug]);
+
         return $this->render('wild/showByActor.html.twig', [
-            'actor' => $actor,
+            'actor' => $actor
         ]);
     }
 

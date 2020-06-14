@@ -43,6 +43,9 @@ class ProgramType extends AbstractType
                 'multiple' => true,
                 'label' => 'Acteurs',
             ])
+            ->add('slug', TextType::class, [
+                'required' => false,
+            ])
         ;
     }
 

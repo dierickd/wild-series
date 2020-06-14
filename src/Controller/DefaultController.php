@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Service\Slugify;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,9 +13,10 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="app_index")
+     * @param Slugify $slugify
      * @return Response
      */
-    public function index() :Response
+    public function index(Slugify $slugify) :Response
     {
         return $this->render('wild/home.html.twig', [
             'website' => 'Wild Séries',

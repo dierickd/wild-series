@@ -25,7 +25,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('images/movie', './assets/images/movie.png')
-    .addEntry('search', './assets/js/search.js')
+    .addEntry('images/actor', './assets/images/actor.png')
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

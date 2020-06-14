@@ -5,8 +5,12 @@ namespace App\Controller;
 use App\Entity\Actor;
 use App\Form\ActorType;
 use App\Repository\ActorRepository;
+use App\Service\Slugify;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,10 +41,12 @@ class ActorController extends AbstractController
 
     /**
      * @Route("/new", name="actor_new", methods={"GET","POST"})
-     * @param Request $request
+     * @param Request                $request
+     * @param Slugify                $slugify
+     * @param EntityManagerInterface $entityManager
      * @return Response
      */
-    public function new(Request $request): Response
+    public function new(Request $request, Slugify $slugify, EntityManagerInterface $entityManager): Response
     {
         $actor = new Actor();
         $form = $this->createForm(ActorType::class, $actor);
@@ -48,6 +54,8 @@ class ActorController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+
+            $actor->setSlug($slugify->generate($actor->getName()));
             $entityManager->persist($actor);
             $entityManager->flush();
 
@@ -74,17 +82,22 @@ class ActorController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="actor_edit", methods={"GET","POST"})
-     * @param Request $request
-     * @param Actor   $actor
+     * @param Request                $request
+     * @param Actor                  $actor
+     * @param EntityManagerInterface $entityManager
+     * @param Slugify                $slugify
      * @return Response
      */
-    public function edit(Request $request, Actor $actor): Response
+    public function edit(Request $request, Actor $actor, EntityManagerInterface $entityManager, Slugify $slugify): Response
     {
         $form = $this->createForm(ActorType::class, $actor);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $this->getDoctrine()->getManager();
+            $actor->setSlug($slugify->generate($actor->getName()));
+            $entityManager->persist($actor);
+            $entityManager->flush();
 
             return $this->redirectToRoute('actor_index');
         }

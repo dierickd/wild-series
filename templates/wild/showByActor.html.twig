@@ -4,11 +4,12 @@
 {% block body %}
     <div class="container">
         <h1>Voir un acteur</h1>
-        <a class="btn btn-sm btn-dark my-4" href="{{ path('wild_all_actors') }}">Retour</a>
+        <a class="btn btn-sm btn-dark my-4" href="{{ path('wild_all_actors') }}">Tous les acteurs</a>
         <a class="btn btn-sm btn-custom my-4" href="{{ path('wild_index') }}">Accueil</a>
         <div class="row">
-            <div class="col-md-4 image-container mb-3">
-                <img id="img" src="{{ actor.image }}" alt="{{ actor.name }}">
+            <div class="col-md-4 image-container mb-3 actor-card">
+                <img src="{{ actor.image ?? asset('build/images/actor.6ddea756.png') }}"
+                     alt="{{ actor.name }}" class="image-shadow {{ actor.image is not defined ? "" : "card-img-actor-default" }}">
             </div>
             <div class="col-md-8">
                 <table class="table">
@@ -22,7 +23,7 @@
                         <td>
                             {% for program in actor.programs %}
                                 <a class="btn btn-custom"
-                                   href="{{ path('wild_show', { 'slug': program.title | replace({' ':'-'}) }) | lower }}">
+                                   href="{{ path('wild_show', { 'slug': program.slug }) | lower }}">
                                     {{ program.title }}
                                 </a>
                             {% else %}

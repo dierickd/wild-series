@@ -12,15 +12,12 @@
                     {% for actor in actors %}
                         <div class="col mb-4 actor-card">
                             <a href="{{ path('wild_actor',
-                                {'slug': actor.name | replace({' ': '-'}) | lower,
-                                    'id': actor.id,
+                                {'slug': actor.slug | lower,
                                 }) }}">
                                 <div class="card card-actor h-100">
-                                    {% if actor.image %}
-                                        <img src="{{ actor.image }}" class="card-img-top card-img-actor" alt="{{ actor.name }}">
-                                    {% else %}
-                                        <img src="{{ asset('build/images/movie.408ea2dd.png') }}" class="card-img-top card-img-actor-default" alt="{{ actor.name }}">
-                                    {% endif %}
+                                    <img src="{{ actor.image ?? asset('build/images/actor.6ddea756.png') }}"
+                                         class="image-shadow {{ actor.image ? "" : "card-img-actor-default" }}"
+                                         alt="{{ actor.name }}">
                                     <div class="card-body">
                                         <p class="card-text text-center">
                                             <small class="text-muted">{{ actor.name }}</small>

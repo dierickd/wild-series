@@ -22,6 +22,7 @@ class EpisodeType extends AbstractType
             ->add('title', TextType::class, ['label' => 'Titre'])
             ->add('number', NumberType::class, ['label' => 'Episode'])
             ->add('synopsis', TextareaType::class)
+            ->add('slug', TextType::class, ['required' => false])
             ->add('poster', TextType::class,
                 [
                     'label' => 'Affiche',
@@ -32,7 +33,8 @@ class EpisodeType extends AbstractType
                 'choice_label' => 'getSelectFormString',
                 'multiple' => false,
                 'label' => 'Saison',
-            ]);
+            ])
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

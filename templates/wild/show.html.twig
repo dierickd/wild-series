@@ -9,7 +9,7 @@
         <div class="media">
             <div class="row">
                 <div class="col col-12 col-md-5">
-                    <img class="align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
+                    <img class="image-shadow align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
                 </div>
                 <div class="media-detail col col-12 col-md-7">
                     <div class="media-body">
@@ -21,9 +21,8 @@
                         <p class="actor-wrapper">
                             <a class="btn-custom"
                                href="{{ path('wild_actor',
-                                   {'slug': actor.name | replace({' ': '-'}) | lower,
-                                       'id': actor.id,
-                                   }) }}">
+                                   {'slug': actor.slug | lower })
+                               }}">
                                 {{ actor.name }}
                             </a>
                         </p>
@@ -34,7 +33,7 @@
                             {% for season in seasons %}
                                 <li class="nav-item">
                                     <a class="btn btn-dark mx-1" href="{{ path('wild_show_season',
-                                        { 'slug': program.title | replace({' ':'-'}) | lower,
+                                        { 'slug': program.slug | lower,
                                             'id': season.id,
                                             'number': season.number }) }}">Saison {{ season.number }}</a>
                                 </li>
