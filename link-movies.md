@@ -17,3 +17,5 @@
 [16 - Symfony : Les fixtures](https://drive.google.com/file/d/1Pb8p_glZOQG4mTJXkzzkk3SfeM6Twogw/view?usp=sharing)
 
 [17 - Symfony : Introduction aux “Services”](https://drive.google.com/file/d/1ByADG-DL7gVYzoGfNFwxyjsen6geHxwD/view?usp=sharing)
+
+[18 - Symfony : Envoi d’e-mail](https://drive.google.com/file/d/1rwYiUJszZvYCYAo2X9dF1orScBvyfW_C/view?usp=sharing)
