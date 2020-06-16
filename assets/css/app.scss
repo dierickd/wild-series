@@ -1,6 +1,5 @@
 @import "reset";
 @import "vars";
-@import "mixins";
 
 $theme-colors: (
         "dark": $dark,
@@ -24,8 +23,8 @@ body {
   margin-top: 2rem;
 }
 
-.bg-dark {
-  background-color: $color-main;
+.dark {
+  background-color: $color-dark;
 }
 
 .btn-custom {
@@ -36,14 +35,6 @@ body {
   margin-right: $margin-sm;
 }
 
-hr {
-  background-color: $color-light;
-  height: 1px;
-  width: 100%;
-  border: none;
-  margin: $margin-sm;
-  opacity: .5;
-}
 
 .navbar-dark .navbar-nav .nav-link,
 .navbar .navbar-brand {
@@ -69,14 +60,14 @@ img {
 .card-poster {
   width: 100%;
 
-  .card-body {
-    height: 125px;
-  }
   .image {
     height: 100%;
   }
+
   img {
-    @include card-poster(100%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 }
 
@@ -98,6 +89,14 @@ img {
   background-color: $color-dark;
   color: $color-light;
   min-height: 100vh;
+
+  hr {
+    background-color: $color-light;
+    height: 1px;
+    border: none;
+    margin: $margin-sm;
+    opacity: .5;
+  }
 }
 
 .sidebar .nav-link {

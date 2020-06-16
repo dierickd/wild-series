@@ -53,10 +53,9 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('create', 'Le programme a été créé avec succès');
+            $this->addFlash('create', 'Le programme a été créé');
             $entityManager = $this->getDoctrine()->getManager();
-            $slug = $slugify->generate($program->getTitle());
-            $program->setSlug($slug);
+            $program->setSlug($slugify->generate($program->getTitle()));
             $entityManager->persist($program);
             $entityManager->flush();
 
@@ -107,8 +106,7 @@ class ProgramController extends AbstractController
             $this->addFlash('modify', 'Modification enregistrée');
 
             $entityManager = $this->getDoctrine()->getManager();
-            $slug = $slugify->generate($program->getTitle());
-            $program->setSlug($slug);
+            $program->setSlug($slugify->generate($program->getTitle()));
             $entityManager->persist($program);
             $entityManager->flush();
 
