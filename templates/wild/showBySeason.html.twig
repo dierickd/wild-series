@@ -55,7 +55,7 @@
             {% for episode in episodes %}
                 <div class="card mb-3 actor-card">
                     <div class="row no-gutters">
-                        <div class="col-md-3">
+                        <div class="col-md-3 col-lg-2">
                             <img src="{{ episode.poster ?? asset('build/images/movie.408ea2dd.png') }}"
                                  class="card-img {{ episode.poster is not defined ? "" : "card-img-actor-default" }}"
                                  alt="{{ episode.title }}">

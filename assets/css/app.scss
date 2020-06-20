@@ -1,5 +1,6 @@
 @import "reset";
 @import "vars";
+@import "glitch";
 
 $theme-colors: (
         "dark": $dark,
@@ -12,7 +13,8 @@ $theme-colors: (
 
 body {
   font-family: $ff-main;
-  background-color: $color-light;
+  background: linear-gradient(to bottom, $color-light-opacity, $color-light-opacity),
+  center center / cover url("https://images.unsplash.com/photo-1538152911114-73f1aa6d6128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80") fixed;
 }
 
 #main {
@@ -33,6 +35,26 @@ body {
   border-radius: $border-radius;
   margin-left: $margin-sm;
   margin-right: $margin-sm;
+}
+
+.navbar .dropdown-menu {
+  background-color: $color-dark;
+
+  &:target {
+    outline: none;
+  }
+
+  .dropdown-item {
+    color: $color-light;
+  }
+
+  .dropdown-menu:hover {
+    background-color: $color-light;
+  }
+
+  .dropdown-item:hover {
+    color: $color-dark;
+  }
 }
 
 
@@ -108,13 +130,19 @@ img {
   background-color: $color-light;
 }
 
-.media-body .table td {
-  border: none;
-}
+.media-body {
+  background-color: $color-light-opacity;
+  box-shadow: 0 1px 3px $color-grey;
+  padding: 1rem;
 
-.media-body table td:first-child {
-  min-width: 120px;
-  font-weight: bold;
+  .table td {
+    border: none;
+  }
+
+  table td:first-child {
+    min-width: 120px;
+    font-weight: bold;
+  }
 }
 
 .list-episodes img {
@@ -136,7 +164,7 @@ img {
 }
 
 .table img {
-  max-width: 70px;
+  max-width: 50px;
 }
 
 footer {
@@ -186,6 +214,7 @@ textarea {
 
 .actor-card {
   min-height: 200px;
+  background-color: $color-light-opacity;
 
   .card-actor {
     max-width: 150px;

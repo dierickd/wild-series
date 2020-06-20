@@ -92,13 +92,14 @@ class WildController extends AbstractController
         return $this->render('wild/show.html.twig', [
             'program' => $program,
             'seasons' => $program->getSeasons(),
+            'categories' => $this->getCategory(),
         ]);
     }
 
     /**
      * @Route("/series/category/{categoryName}",
      *      name="wild_category",
-     *      requirements={"categoryName"="[A-Za-z'àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+"},
+     *      requirements={"categoryName"="[A-Za-z-]+"},
      *     options={"utf8": true}
      * )
      * @param string             $categoryName
@@ -139,7 +140,8 @@ class WildController extends AbstractController
 
         return $this->render('wild/showByCategory.html.twig', [
             'selectByCategory' => $selectByCategory,
-            'categories' => $this->getCategory()
+            'categories' => $this->getCategory(),
+            'category' => $category,
         ]);
     }
 
@@ -213,7 +215,8 @@ class WildController extends AbstractController
         $actor = $actorRepository->findOneBy(['slug' => $slug]);
 
         return $this->render('wild/showByActor.html.twig', [
-            'actor' => $actor
+            'actor' => $actor,
+            'categories' => $this->getCategory(),
         ]);
     }
 
@@ -238,7 +241,7 @@ class WildController extends AbstractController
                 $request->query->getInt('page', 1),
                 12
             ),
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $this->getCategory(),
         ]);
     }
 
