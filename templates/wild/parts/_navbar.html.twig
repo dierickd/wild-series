@@ -22,22 +22,24 @@
                     {% endfor %}
                 </div>
             </li>
-            <a class="nav-item nav-link" href="{{ path('app_index') }}"><i class="fas fa-home"></i> Acteurs</a>
+            <a class="nav-item nav-link" href="{{ path('wild_all_actors') }}"><i class="fas fa-home"></i> Acteurs</a>
         </div>
         <div class="navbar-nav">
-            {#            <a class="nav-item nav-link" href="{{ path('app_login') }}"><i class="fas fa-user-friends"></i> Se connecter</a>#}
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                 {% if app.user is defined %}
-                    <a class="nav-item nav-link" href="{{ path('app_logout') }}"><i
-                                class="fas fa-user-friends mr-1"></i> Se
-                        déconnecter</a>
-                    <a class="nav-item nav-link" href="{{ path('admin') }}"><i class="fas fa-cog mr-1"></i>Administrateur</a>
+                    <a class="nav-item nav-link" href="{{ path('app_logout') }}"><i class="fas fa-user-friends mr-1"></i>
+                        Se déconnecter</a>
+                    {% if app.user.roles[0] == 'ROLE_USER' or app.user.roles[0] == 'ROLE_SUBSCRIBER' %}
+                        <a class="nav-item nav-link" href="{{ path('profile') }}"><i class="fas fa-cog mr-1"></i>Mon
+                            profile</a>
+                    {% elseif app.user.roles[0] == 'ROLE_ADMIN' %}
+                        <a class="nav-item nav-link" href="{{ path('admin') }}"><i class="fas fa-cog mr-1"></i>Administration</a>
+                    {% endif %}
                 {% endif %}
             {% else %}
                 <a class="nav-item nav-link" href="{{ path('app_login') }}"><i class="fas fa-user-friends mr-1"></i> Se
                     connecter</a>
             {% endif %}
         </div>
-        {#        {{ dump(user) }}#}
     </div>
 </nav>

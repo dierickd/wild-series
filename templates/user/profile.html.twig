@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h1>Mon profile</h1>
+
+        <h2>Email: {{ user.email }}</h2>
+        <h2>Role: {{ user.roles[0] }}</h2>
+        <h2>Username: {{ user.username }}</h2>
+
+    </div>
+{% endblock %}

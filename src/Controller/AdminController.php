@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Category;
 use App\Form\CategoryType;
+use App\Repository\CategoryRepository;
+use App\Service\GetCategory;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,9 +26,13 @@ class AdminController extends AbstractController
      * @IsGranted("ROLE_ADMIN")
      *
      * @Route("/admin", name="admin")
+     * @param GetCategory $category
+     * @return Response
      */
-    public function index(): Response
+    public function index(GetCategory $category): Response
     {
-        return $this->render('admin/index.html.twig');
+        return $this->render('admin/index.html.twig', [
+            'categories' => $category->getCategory(),
+        ]);
     }
 }

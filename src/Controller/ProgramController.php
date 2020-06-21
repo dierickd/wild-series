@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
+use App\Service\GetCategory;
 use App\Service\Slugify;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,10 +17,17 @@ use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @property array category
  * @Route("/admin/program")
  */
 class ProgramController extends AbstractController
 {
+
+    public function __construct(GetCategory $category)
+    {
+        $this->category = $category->getCategory();
+    }
+
     /**
      * @Route("/", name="program_index", methods={"GET"})
      * @param ProgramRepository  $programRepository
@@ -35,6 +43,7 @@ class ProgramController extends AbstractController
                 $request->query->getInt('page', 1),
                 10
             ),
+            'categories' => $this->category,
         ]);
     }
 
@@ -75,6 +84,7 @@ class ProgramController extends AbstractController
         return $this->render('admin/program/new.html.twig', [
             'program' => $program,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -87,6 +97,7 @@ class ProgramController extends AbstractController
     {
         return $this->render('admin/program/show.html.twig', [
             'program' => $program,
+            'categories' => $this->category,
         ]);
     }
 
@@ -116,6 +127,7 @@ class ProgramController extends AbstractController
         return $this->render('admin/program/edit.html.twig', [
             'program' => $program,
             'form' =>  $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 

@@ -7,6 +7,7 @@ use App\Form\EpisodeType;
 use App\Form\ProgramSearchType;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
+use App\Service\GetCategory;
 use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -16,10 +17,17 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @property array category
  * @Route("/episode")
  */
 class EpisodeController extends AbstractController
 {
+
+    public function __construct(GetCategory $category)
+    {
+        $this->category = $category->getCategory();
+    }
+
     /**
      * @Route("/", name="episode_index", methods={"GET"})
      * @param EpisodeRepository  $episodeRepository
@@ -42,6 +50,7 @@ class EpisodeController extends AbstractController
                 10
             ),
             'programs' => $programRepository->findAll(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -71,6 +80,7 @@ class EpisodeController extends AbstractController
         return $this->render('admin/episode/new.html.twig', [
             'episode' => $episode,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -83,6 +93,7 @@ class EpisodeController extends AbstractController
     {
         return $this->render('admin/episode/show.html.twig', [
             'episode' => $episode,
+            'categories' => $this->category,
         ]);
     }
 
@@ -112,6 +123,7 @@ class EpisodeController extends AbstractController
         return $this->render('admin/episode/edit.html.twig', [
             'episode' => $episode,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 

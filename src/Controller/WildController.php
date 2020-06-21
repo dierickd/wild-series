@@ -4,8 +4,10 @@
 namespace App\Controller;
 
 
-use App\Entity\Category;
+use App\Service\GetCategory;
 use Knp\Component\Pager\PaginatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
 use App\Repository\CategoryRepository;
@@ -18,8 +20,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @property array categories
+ */
 class WildController extends AbstractController
 {
+
+    public function __construct(GetCategory $category)
+    {
+        $this->categories = $category->getCategory();
+    }
+
     /**
      * Show all rows from Program’s entity
      *
@@ -64,7 +75,7 @@ class WildController extends AbstractController
             [
                 'programs' => $programs,
                 'form' => $form->createView(),
-                'categories' => $this->getCategory(),
+                'categories' => $this->categories,
             ]
         );
     }
@@ -92,7 +103,7 @@ class WildController extends AbstractController
         return $this->render('wild/show.html.twig', [
             'program' => $program,
             'seasons' => $program->getSeasons(),
-            'categories' => $this->getCategory(),
+            'categories' => $this->categories,
         ]);
     }
 
@@ -140,7 +151,7 @@ class WildController extends AbstractController
 
         return $this->render('wild/showByCategory.html.twig', [
             'selectByCategory' => $selectByCategory,
-            'categories' => $this->getCategory(),
+            'categories' => $this->categories,
             'category' => $category,
         ]);
     }
@@ -175,7 +186,7 @@ class WildController extends AbstractController
                 $request->query->getInt('page', 1),
                 10
             ),
-            'categories' => $this->getCategory()
+            'categories' => $this->categories
         ]);
     }
 
@@ -197,7 +208,7 @@ class WildController extends AbstractController
                 'episode' => $episode,
                 'season' => $episode->getSeason(),
                 'program' => $episode->getSeason()->getProgram(),
-                'categories' => $this->getCategory()
+                'categories' => $this->categories
             ]);
     }
 
@@ -216,7 +227,7 @@ class WildController extends AbstractController
 
         return $this->render('wild/showByActor.html.twig', [
             'actor' => $actor,
-            'categories' => $this->getCategory(),
+            'categories' => $this->categories,
         ]);
     }
 
@@ -241,15 +252,7 @@ class WildController extends AbstractController
                 $request->query->getInt('page', 1),
                 12
             ),
-            'categories' => $this->getCategory(),
+            'categories' => $this->categories,
         ]);
-    }
-
-    /**
-     * @return Category[]
-     */
-    public function getCategory()
-    {
-        return $this->getDoctrine()->getRepository(Category::class)->findAll(['name' => 'ASC']);
     }
 }
