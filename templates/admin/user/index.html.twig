@@ -21,10 +21,8 @@
                 <tr>
                     <td>{{ user.email }}</td>
                     <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-{#                    <td>{{ user.password }}</td>#}
                     <td>
                         <a class="btn btn-sm btn-outline-dark" href="{{ path('user_show', {'id': user.id}) }}">Afficher</a>
-                        <a class="btn btn-sm btn-dark" href="{{ path('user_edit', {'id': user.id}) }}">Editer</a>
                     </td>
                 </tr>
             {% else %}

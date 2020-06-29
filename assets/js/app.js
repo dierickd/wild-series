@@ -25,16 +25,26 @@ require('select2');
 $(document).ready(function () {
     $('[data-toggle="popover"]').popover();
     $('select').select2();
+    $('.toast').toast({delay: 2500});
+    $('.toast').toast('show');
 });
 
 // script for update image into CRUD
 // listen the change input poster
 
 let box = document.querySelector('.watch-js');
-if (box.value != null) {
-    document.getElementById('img').setAttribute('src', box.value);
+let img = document.getElementById('img');
+let srcImage = document.getElementById('avatar');
+
+if (box.value !== null) {
+    if (img !== null) {
+        img.setAttribute('src', box.value);
+    }
+    if (srcImage !== null) {
+        srcImage.setAttribute('src', '/images/' + box.value);
+    }
 }
+
 box.addEventListener('change', function () {
     document.getElementById('img').setAttribute('src', box.value);
 })
-

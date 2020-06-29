@@ -10,6 +10,7 @@ $theme-colors: (
 @import "~bootstrap/scss/bootstrap";
 @import "media";
 @import "pagination";
+@import "flash";
 
 body {
   font-family: $ff-main;
@@ -177,7 +178,7 @@ footer {
   height: auto;
 }
 
-#img, .image-shadow {
+#img, .image-shadow, #avatar {
   text-align: center;
   background-color: $color-grey;
   display: block;

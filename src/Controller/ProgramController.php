@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Program;
 use App\Form\ProgramType;
 use App\Repository\ProgramRepository;
+use App\Service\Flash;
 use App\Service\GetCategory;
 use App\Service\Slugify;
 use Knp\Component\Pager\PaginatorInterface;
@@ -23,9 +24,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProgramController extends AbstractController
 {
 
-    public function __construct(GetCategory $category)
+    /**
+     * @var string
+     */
+    private $flash;
+
+    public function __construct(GetCategory $category, Flash $flash)
     {
         $this->category = $category->getCategory();
+        $this->flash = $flash;
     }
 
     /**
@@ -62,7 +69,7 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('create', 'Le programme a été créé');
+            $this->flash->createFlash('create');
             $entityManager = $this->getDoctrine()->getManager();
             $program->setSlug($slugify->generate($program->getTitle()));
             $entityManager->persist($program);

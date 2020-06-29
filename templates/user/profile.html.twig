@@ -1,12 +1,38 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profile{% endblock %}
 
 {% block body %}
     <div class="container">
-        <h1>Mon profile</h1>
 
-        <h2>Email: {{ user.email }}</h2>
-        <h2>Role: {{ user.roles[0] }}</h2>
-        <h2>Username: {{ user.username }}</h2>
+        <h1>Mon profile</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="col-md-12 image-container mb-3">
+                    <img id="avatar" src="" alt="image non disponible">
+                </div>
+            </div>
+            <div class="col-md-8">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="">{{ form_row(form.createdAt) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.username) }}</div>
+                    <div class="col-md-6">{{ form_row(form.email) }}</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">{{ form_row(form.avatar) }}</div>
+                </div>
+
+                {{ include('/user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+
+
+                {{ include('/user/_delete_form.html.twig') }}
+                {{ form_end(form) }}
+            </div>
+        </div>
+
 
     </div>
 {% endblock %}

@@ -10,9 +10,9 @@ Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.
 10: @import "~bootstrap/scss/bootstrap";
 11: @import "media";
 12: @import "pagination";
-13: 
-14: body {
-15:   font-family: $ff-main;
+13: @import "flash";
+14: 
+15: body {
 
 Backtrace:
 app.scss:10
@@ -51,4 +51,4 @@ app.scss:10
 body:before {
   white-space: pre;
   font-family: monospace;
-  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.\A         on line 10 of app.scss\A \A 5: $theme-colors: (\A 6:         \"dark\": $dark,\A 7:         \"secondary\": $secondary,\A 8: );\A 9: \A 10: @import \"~bootstrap/scss/bootstrap\";\A 11: @import \"media\";\A 12: @import \"pagination\";\A 13: \A 14: body {\A 15:   font-family: $ff-main;"; }
+  content: "Error: File to import not found or unreadable: ~bootstrap/scss/bootstrap.\A         on line 10 of app.scss\A \A 5: $theme-colors: (\A 6:         \"dark\": $dark,\A 7:         \"secondary\": $secondary,\A 8: );\A 9: \A 10: @import \"~bootstrap/scss/bootstrap\";\A 11: @import \"media\";\A 12: @import \"pagination\";\A 13: @import \"flash\";\A 14: \A 15: body {"; }

@@ -5,8 +5,11 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use App\Service\Flash;
 use App\Service\GetCategory;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,14 +17,16 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @property array category
+ * @property Flash flash
  * @Route("/user")
  */
 class UserController extends AbstractController
 {
 
-    public function __construct(GetCategory $category)
+    public function __construct(GetCategory $category, Flash $flash)
     {
         $this->category = $category->getCategory();
+        $this->flash = $flash;
     }
 
     /**
@@ -77,23 +82,31 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @IsGranted("ROLE_USER")
+     * @Route("/profile/{username}", name="profile")
+     * @ParamConverter("user", options={"mapping": {"username": "username"}})
      * @param Request $request
      * @param User    $user
+     * @param string  $username
      * @return Response
      */
-    public function edit(Request $request, User $user): Response
+    public function edit(Request $request, User $user, string $username): Response
     {
+        if ($this->getUser()->getUsername() !== $username) {
+            $this->flash->createFlash('denied');
+            return $this->redirectToRoute('wild_index');
+        }
+
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('profile', ['username' => $this->getUser()->getUsername()]);
         }
 
-        return $this->render('admin/user/edit.html.twig', [
+        return $this->render('/user/profile.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
             'categories' => $this->category,
@@ -118,20 +131,27 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/profile/{username}", name="profile")
-     * @ParamConverter("user", options={"mapping": {"username": "username"}})
-     * @param UserRepository $user
-     * @param string         $username
+     * @Route("/{id}/edit", name="user_edit")
+     * @ParamConverter("user", options={"mapping": {"id": "id"}})
+     * @param User    $user
+     * @param int     $id
+     * @param Request $request
      * @return Response
      */
-    public function profile(UserRepository $user, string $username): Response
+    public function editAdmin(User $user, int $id, Request $request): Response
     {
+        $form = $this->createForm(UserType::class, $user);
+        $form->handleRequest($request);
 
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('profile');
+        }
         return $this->render('/user/profile.html.twig', [
             'categories' => $this->category,
-            'user' => $user->findOneBy([
-                "username" => $username,
-            ]),
+            'form' => $form->createView(),
+            'user' => $user,
         ]);
     }
 }

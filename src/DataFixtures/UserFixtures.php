@@ -28,6 +28,7 @@ class UserFixtures extends Fixture
 
     /**
      * @inheritDoc
+     * @throws \Exception
      */
     public function load(ObjectManager $manager)
     {
@@ -44,11 +45,13 @@ class UserFixtures extends Fixture
 //            $manager->persist($user);
 //        }
         for ($i = 0; $i <= 5; $i++) {
-
+            $id = random_int(1, 4);
             $user = new User();
-            $user->setEmail('user'.$i.'@wild-series.fr');
+            $user->setEmail('user' . $i . '@wild-series.fr');
             $user->setRoles(['ROLE_USER']);
-            $user->setUsername($slugify->generate($faker->name));
+            $user->setUsername($slugify->generate($faker->firstName()));
+            $user->setCreatedAt($faker->dateTime);
+            $user->setAvatar('avatar' . $id . '.png');
             $user->setPassword($this->passwordEncoder->encodePassword(
                 $user,
                 'user'
@@ -61,7 +64,9 @@ class UserFixtures extends Fixture
         $admin = new User();
         $admin->setEmail('admin@monsite.com');
         $admin->setRoles(['ROLE_ADMIN']);
-        $admin->setUsername($slugify->generate($faker->name));
+        $admin->setUsername($slugify->generate($faker->firstName()));
+        $admin->setCreatedAt($faker->dateTime);
+        $admin->setAvatar('admin.png');
         $admin->setPassword($this->passwordEncoder->encodePassword(
             $admin,
             'admin'
@@ -70,5 +75,4 @@ class UserFixtures extends Fixture
         $manager->persist($admin);
         $manager->flush();
     }
-
 }
