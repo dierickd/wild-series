@@ -4,10 +4,10 @@
 namespace App\Controller;
 
 
+use App\Repository\CommentRepository;
+use App\Repository\UserRepository;
 use App\Service\GetCategory;
 use Knp\Component\Pager\PaginatorInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
 use App\Repository\CategoryRepository;
@@ -186,7 +186,7 @@ class WildController extends AbstractController
                 $request->query->getInt('page', 1),
                 10
             ),
-            'categories' => $this->categories
+            'categories' => $this->categories,
         ]);
     }
 
@@ -194,11 +194,12 @@ class WildController extends AbstractController
      * @Route("/series/{slug<[a-zA-Z-]+[0-9]*>}/{episode<[a-zA-Z-]+[0-9]*>}", name="wild_show_episode")
      * @ParamConverter("episode", options={"mapping": {"slug": "episode"}})
      * @param EpisodeRepository $episodeRepository
-     * @param                   $episode
+     * @param string            $episode
      * @return Response
      */
     public function showEpisode(
-        EpisodeRepository $episodeRepository, $episode
+        EpisodeRepository $episodeRepository,
+        $episode
     ): Response
     {
         $episode = $episodeRepository->findOneBy(['slug' => $episode]);
@@ -208,7 +209,7 @@ class WildController extends AbstractController
                 'episode' => $episode,
                 'season' => $episode->getSeason(),
                 'program' => $episode->getSeason()->getProgram(),
-                'categories' => $this->categories
+                'categories' => $this->categories,
             ]);
     }
 

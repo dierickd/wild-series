@@ -34,16 +34,6 @@ class UserFixtures extends Fixture
     {
         $slugify = new Slugify();
         $faker = Factory::create('fr_FR');
-//        for ($i = 0; $i <= 10; $i++) {
-//            $rand = rand(0, 1);
-//            $user = new User();
-//            $user->setEmail($faker->email);
-//            $user->setPassword($this->passwordEncoder->encodePassword(
-//                $user,
-//                'the_new_password'));
-//            $user->setRoles((array)self::ROLE[$rand]);
-//            $manager->persist($user);
-//        }
         for ($i = 0; $i <= 5; $i++) {
             $id = random_int(1, 4);
             $user = new User();
