@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\User;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -21,6 +22,7 @@ class UserType extends AbstractType
             ])
             ->add('avatar', TextType::class, [
                 'label' => 'Avatar',
+                'required' => false,
                 'attr' => ['class' => 'watch-js']
             ])
             ->add('createdAt', DateType::class, [
@@ -33,6 +35,15 @@ class UserType extends AbstractType
             ])
             ->add('username', TextType::class, [
                 'label' => 'Username',
+            ])
+            ->add('roles', CollectionType::class, [
+                'entry_type' => ChoiceType::class,
+                'entry_options' => [
+                    'choices' => [
+                        'User' => 'ROLE_USER',
+                        'Admin' => 'ROLE_ADMIN',
+                    ]
+                ]
             ])
         ;
     }

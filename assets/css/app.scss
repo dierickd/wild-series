@@ -2,7 +2,7 @@
 @import "vars";
 @import "glitch";
 
-$theme-colors: (
+$theme-colors : (
         "dark": $dark,
         "secondary": $secondary,
 );
@@ -13,226 +13,226 @@ $theme-colors: (
 @import "flash";
 
 body {
-  font-family: $ff-main;
-  background: linear-gradient(to bottom, $color-light-opacity, $color-light-opacity),
+  font-family : $ff-main;
+  background  : linear-gradient(to bottom, $color-light-opacity, $color-light-opacity),
   center center / cover url("https://images.unsplash.com/photo-1538152911114-73f1aa6d6128?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80") fixed;
 }
 
 #main {
-  min-height: 100vh;
+  min-height : 100vh;
 }
 
 .container {
-  margin-top: 2rem;
+  margin-top : 2rem;
 }
 
 .dark {
-  background-color: $color-dark;
+  background-color : $color-dark;
 }
 
 .btn-custom {
-  border: 1px solid $dark;
-  padding: $margin-sm / 2 $margin-sm;
-  border-radius: $border-radius;
-  margin-left: $margin-sm;
-  margin-right: $margin-sm;
+  border        : 1px solid $dark;
+  padding       : $margin-sm / 2 $margin-sm;
+  border-radius : $border-radius;
+  margin-left   : $margin-sm;
+  margin-right  : $margin-sm;
 }
 
 .navbar .dropdown-menu {
-  background-color: $color-dark;
+  background-color : $color-dark;
 
   &:target {
-    outline: none;
+    outline : none;
   }
 
   .dropdown-item {
-    color: $color-light;
+    color : $color-light;
   }
 
   .dropdown-menu:hover {
-    background-color: $color-light;
+    background-color : $color-light;
   }
 
   .dropdown-item:hover {
-    color: $color-dark;
+    color : $color-dark;
   }
 }
 
 
 .navbar-dark .navbar-nav .nav-link,
 .navbar .navbar-brand {
-  color: $color-light;
-  font-family: $ff-title;
-  transition: $effect-transition;
+  color       : $color-light;
+  font-family : $ff-title;
+  transition  : $effect-transition;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover,
 .navbar .navbar-brand:hover {
-  color: $color-light-hover;
+  color : $color-light-hover;
 }
 
 a, a:hover, .btn-link, .btn-link:hover, .btn-link:active, .btn-link:visited, .btn-link:target, .btn-link:focus {
-  text-decoration: none;
-  color: inherit;
+  text-decoration : none;
+  color           : inherit;
 }
 
 img {
-  width: 100%;
+  width : 100%;
 }
 
 .card-poster {
-  width: 100%;
+  width : 100%;
 
   .image {
-    height: 100%;
+    height : 100%;
   }
 
   img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    width      : 100%;
+    height     : 100%;
+    object-fit : cover;
   }
 }
 
 
 .media img {
-  max-width: 400px;
+  max-width : 400px;
 }
 
 .media .nav-link {
-  background-color: $color-main;
-  color: $color-light;
-  display: inline-block;
-  border-radius: $border-radius;
-  margin: $margin-sm;
+  background-color : $color-main;
+  color            : $color-light;
+  display          : inline-block;
+  border-radius    : $border-radius;
+  margin           : $margin-sm;
 }
 
 .sidebar {
-  border-right: 1px solid $color-main;
-  background-color: $color-dark;
-  color: $color-light;
-  min-height: 100vh;
+  border-right     : 1px solid $color-main;
+  background-color : $color-dark;
+  color            : $color-light;
+  min-height       : 100vh;
 
   hr {
-    background-color: $color-light;
-    height: 1px;
-    border: none;
-    margin: $margin-sm;
-    opacity: .5;
+    background-color : $color-light;
+    height           : 1px;
+    border           : none;
+    margin           : $margin-sm;
+    opacity          : .5;
   }
 }
 
 .sidebar .nav-link {
-  padding: $margin-sm;
+  padding : $margin-sm;
 }
 
 .active {
-  color: $color-dark;
-  background-color: $color-light;
+  color            : $color-dark;
+  background-color : $color-light;
 }
 
 .media-body {
-  background-color: $color-light-opacity;
-  box-shadow: 0 1px 3px $color-grey;
-  padding: 1rem;
+  background-color : $color-light-opacity;
+  box-shadow       : 0 1px 3px $color-grey;
+  padding          : 1rem;
 
   .table td {
-    border: none;
+    border : none;
   }
 
   table td:first-child {
-    min-width: 120px;
-    font-weight: bold;
+    min-width   : 120px;
+    font-weight : bold;
   }
 }
 
 .list-episodes img {
-  height: 100%;
-  object-fit: cover;
-  object-position: top;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
+  height                     : 100%;
+  object-fit                 : cover;
+  object-position            : top;
+  border-top-right-radius    : 0;
+  border-bottom-right-radius : 0;
 }
 
 .list-episodes .card {
-  min-width: 100%;
+  min-width : 100%;
 }
 
 .admin-home .fas, .admin-home .fab {
-  padding-top: 25px;
-  text-align: center;
-  font-size: 100px;
+  padding-top : 25px;
+  text-align  : center;
+  font-size   : 100px;
 }
 
 .table img {
-  max-width: 50px;
+  max-width : 50px;
 }
 
 footer {
-  height: 80px;
-  background-color: $color-navbar;
+  height           : 80px;
+  background-color : $color-navbar;
 }
 
 .image-container {
-  width: 100%;
-  height: auto;
+  width  : 100%;
+  height : auto;
 }
 
 #img, .image-shadow, #avatar {
-  text-align: center;
-  background-color: $color-grey;
-  display: block;
-  height: auto;
-  border-radius: 5px;
-  min-height: 200px;
-  box-shadow: $box-shadow;
+  text-align       : center;
+  background-color : $color-grey;
+  display          : block;
+  height           : auto;
+  border-radius    : 5px;
+  min-height       : 200px;
+  box-shadow       : $box-shadow;
 }
 
 .resp-show {
-  display: none;
+  display : none;
 }
 
 textarea {
-  min-height: 140px;
+  min-height : 140px;
 }
 
 .container .select2-container--default .select2-selection--single {
-  height: 100%;
+  height : 100%;
 
   .select2-selection__rendered {
-    background-color: $color-main;
-    color: $color-light-hover;
-    display: inline-block;
-    margin: 5px;
-    border-radius: $border-radius;
+    background-color : $color-main;
+    color            : $color-light-hover;
+    display          : inline-block;
+    margin           : 5px;
+    border-radius    : $border-radius;
   }
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-  background-color: $color-main !important;
-  color: $color-light-hover !important;
+  background-color : $color-main !important;
+  color            : $color-light-hover !important;
 }
 
 .actor-card {
-  min-height: 200px;
-  background-color: $color-light-opacity;
+  min-height       : 200px;
+  background-color : $color-light-opacity;
 
   .card-actor {
-    height: auto;
-    display: inline-block;
+    height  : auto;
+    display : inline-block;
 
     .card-img-actor {
-      height: 75%;
-      object-fit: cover;
+      height     : 75%;
+      object-fit : cover;
     }
   }
 
   .card-img-actor-default {
-    opacity: .2;
-    padding: 15px;
+    opacity : .2;
+    padding : 15px;
   }
 }
 
 .actor-wrapper {
-  display: inline-block;
+  display : inline-block;
 }

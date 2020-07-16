@@ -1,43 +1,15 @@
-{% for message in app.flashes('delete') %}
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header danger">
-            <strong class="mr-auto">Erreur</strong>
+
+
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header {{ label }}">
+                <strong class="mr-auto">{{ label }}</strong>
+            </div>
+            <div class="toast-body">
+                {{ message }}
+            </div>
         </div>
-        <div class="toast-body">
-            {{ message }}
-        </div>
-    </div>
+    {% endfor %}
 {% endfor %}
 
-{% for message in app.flashes('create') %}
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header success">
-            <strong class="mr-auto">Success</strong>
-        </div>
-        <div class="toast-body">
-            {{ message }}
-        </div>
-    </div>
-{% endfor %}
-
-{% for message in app.flashes('update') %}
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header success">
-            <strong class="mr-auto">Success</strong>
-        </div>
-        <div class="toast-body">
-            {{ message }}
-        </div>
-    </div>
-{% endfor %}
-
-{% for message in app.flashes('denied') %}
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header danger">
-            <strong class="mr-auto">Erreur</strong>
-        </div>
-        <div class="toast-body">
-            {{ message }}
-        </div>
-    </div>
-{% endfor %}

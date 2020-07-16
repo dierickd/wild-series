@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
+use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -38,6 +39,11 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $episode;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $posted_at;
 
     public function getId(): ?int
     {
@@ -88,6 +94,18 @@ class Comment
     public function setEpisode(?episode $episode): self
     {
         $this->episode = $episode;
+
+        return $this;
+    }
+
+    public function getPostedAt(): ?DateTimeInterface
+    {
+        return $this->posted_at;
+    }
+
+    public function setPostedAt(DateTimeInterface $posted_at): self
+    {
+        $this->posted_at = $posted_at;
 
         return $this;
     }

@@ -7,6 +7,7 @@ use App\Form\EpisodeType;
 use App\Form\ProgramSearchType;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
+use App\Service\Flash;
 use App\Service\GetCategory;
 use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,9 +24,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class EpisodeController extends AbstractController
 {
 
-    public function __construct(GetCategory $category)
+    /**
+     * @var Flash
+     */
+    private $flash;
+
+    public function __construct(GetCategory $category, Flash $flash)
     {
         $this->category = $category->getCategory();
+        $this->flash = $flash;
     }
 
     /**
@@ -74,6 +81,8 @@ class EpisodeController extends AbstractController
             $entityManager->persist($episode);
             $entityManager->flush();
 
+            $this->flash->createFlash('create');
+
             return $this->redirectToRoute('episode_index');
         }
 
@@ -117,6 +126,8 @@ class EpisodeController extends AbstractController
             $entityManager->persist($episode);
             $entityManager->flush();
 
+            $this->flash->createFlash('update');
+
             return $this->redirectToRoute('episode_index');
         }
 
@@ -139,6 +150,8 @@ class EpisodeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($episode);
             $entityManager->flush();
+
+            $this->flash->createFlash('delete');
         }
 
         return $this->redirectToRoute('episode_index');

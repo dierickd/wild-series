@@ -22,7 +22,7 @@ require('select2');
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/popover');
 
-$(document).ready(function () {
+$(document).ready(() => {
     $('[data-toggle="popover"]').popover();
     $('select').select2();
     $('.toast').toast({delay: 2500});

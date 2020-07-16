@@ -13,12 +13,12 @@
     padding: .5rem .75rem;
   }
 
-  .danger {
+  .delete, .denied {
     background-color: $color-alert;
     color: $color-light;
   }
 
-  .success {
+  .update, .create {
     background-color: $color-success;
     color: $color-light;
 

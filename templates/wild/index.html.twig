@@ -11,8 +11,11 @@
             <div class="col-md-3">
                 {{ form_row(form.searchField) }}
             </div>
-            <div class="col-md-2">
+            <div class="btn-group d-inline-block" role="group">
                 <button class="btn btn-sm btn-dark" type="submit" name="btnSearch">Rechercher</button>
+                {% if search == true %}
+                    <a href="{{ path('wild_index') }}" class="btn btn-sm btn-dark">Afficher tout</a>
+                {% endif %}
             </div>
         </div>
         {{ form_end(form) }}

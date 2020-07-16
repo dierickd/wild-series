@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class Flash extends AbstractController
 {
     const MESSAGE_TYPE = [
-      'delete' => 'Supprimé à jour avec succès',
+      'delete' => 'Supprimé avec succès',
       'update' => 'Mise à jour avec succès',
       'create' => 'Enregistré avec succès',
       'denied' => 'Oups! Vous n\'êtes pas autorisé à faire ceci',
