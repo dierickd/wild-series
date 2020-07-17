@@ -17,7 +17,7 @@ class CategoryFixtures extends Fixture
         'Horreur',
         'Aventure',
         'Animation',
-        'Comédie'
+        'Comedie'
     ];
 
     public function load(\Doctrine\Persistence\ObjectManager $manager)

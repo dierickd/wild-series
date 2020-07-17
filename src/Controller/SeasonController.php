@@ -5,16 +5,24 @@ namespace App\Controller;
 use App\Entity\Season;
 use App\Form\SeasonType;
 use App\Repository\SeasonRepository;
+use App\Service\GetCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @property array category
  * @Route("/season")
  */
 class SeasonController extends AbstractController
 {
+
+    public function __construct(GetCategory $category)
+    {
+        $this->category = $category->getCategory();
+    }
+
     /**
      * @Route("/", name="season_index", methods={"GET"})
      * @param SeasonRepository $seasonRepository
@@ -24,6 +32,7 @@ class SeasonController extends AbstractController
     {
         return $this->render('admin/season/index.html.twig', [
             'seasons' => $seasonRepository->findAll(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -49,6 +58,7 @@ class SeasonController extends AbstractController
         return $this->render('admin/season/new.html.twig', [
             'season' => $season,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -61,6 +71,7 @@ class SeasonController extends AbstractController
     {
         return $this->render('admin/season/show.html.twig', [
             'season' => $season,
+            'categories' => $this->category,
         ]);
     }
 
@@ -84,6 +95,7 @@ class SeasonController extends AbstractController
         return $this->render('admin/season/edit.html.twig', [
             'season' => $season,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 

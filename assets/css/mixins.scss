@@ -1,9 +1,0 @@
-@mixin card-poster($width) {
-  @if($width == 100%) {
-    width: 100%;
-    height: auto;
-  } @else {
-    width: $width;
-    height: $width * 1.34;
-  }
-}

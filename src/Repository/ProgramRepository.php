@@ -38,7 +38,7 @@ class ProgramRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('s')
             ->andWhere('s.title LIKE :searchTerm')
-            ->setParameter('searchTerm', '%'.$term.'%')
+            ->setParameter('searchTerm', '%' . $term . '%')
             ->orderBy('s.id', 'DESC')
             ->getQuery();
     }

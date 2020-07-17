@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200607182049 extends AbstractMigration
+final class Version20200716184553 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,8 +22,7 @@ final class Version20200607182049 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE program ADD CONSTRAINT FK_92ED778412469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
-        $this->addSql('CREATE INDEX IDX_92ED778412469DE2 ON program (category_id)');
+        $this->addSql('ALTER TABLE comment ADD posted_at DATETIME NOT NULL');
     }
 
     public function down(Schema $schema) : void
@@ -31,7 +30,6 @@ final class Version20200607182049 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE program DROP FOREIGN KEY FK_92ED778412469DE2');
-        $this->addSql('DROP INDEX IDX_92ED778412469DE2 ON program');
+        $this->addSql('ALTER TABLE comment DROP posted_at');
     }
 }
