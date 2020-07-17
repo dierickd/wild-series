@@ -5,16 +5,24 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Repository\CategoryRepository;
+use App\Service\GetCategory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @property array category
  * @Route("/admin/category")
  */
 class CategoryController extends AbstractController
 {
+
+    public function __construct(GetCategory $category)
+    {
+        $this->category = $category->getCategory();
+    }
+
     /**
      * @Route("/", name="category_index", methods={"GET"})
      * @param CategoryRepository $categoryRepository
@@ -24,6 +32,7 @@ class CategoryController extends AbstractController
     {
         return $this->render('admin/category/index.html.twig', [
             'categories' => $categoryRepository->findAll(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -49,6 +58,7 @@ class CategoryController extends AbstractController
         return $this->render('admin/category/new.html.twig', [
             'category' => $category,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -61,6 +71,7 @@ class CategoryController extends AbstractController
     {
         return $this->render('admin/category/show.html.twig', [
             'category' => $category,
+            'categories' => $this->category,
         ]);
     }
 
@@ -84,6 +95,7 @@ class CategoryController extends AbstractController
         return $this->render('admin/category/edit.html.twig', [
             'category' => $category,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 

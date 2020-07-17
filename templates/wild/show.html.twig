@@ -32,7 +32,7 @@
                         <ul class="nav flex-row mt-5">
                             {% for season in seasons %}
                                 <li class="nav-item">
-                                    <a class="btn btn-dark mx-1" href="{{ path('wild_show_season',
+                                    <a class="btn btn-dark m-1" href="{{ path('wild_show_season',
                                         { 'slug': program.slug | lower,
                                             'id': season.id,
                                             'number': season.number }) }}">Saison {{ season.number }}</a>

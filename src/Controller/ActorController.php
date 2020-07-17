@@ -5,22 +5,27 @@ namespace App\Controller;
 use App\Entity\Actor;
 use App\Form\ActorType;
 use App\Repository\ActorRepository;
+use App\Service\GetCategory;
 use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Component\Pager\PaginatorInterface;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bridge\Doctrine\Security\User\EntityUserProvider;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @property array category
  * @Route("/actor")
  */
 class ActorController extends AbstractController
 {
+
+    public function __construct(GetCategory $category)
+    {
+        $this->category = $category->getCategory();
+    }
+
     /**
      * @Route("/", name="actor_index", methods={"GET"})
      * @param ActorRepository    $actorRepository
@@ -35,7 +40,8 @@ class ActorController extends AbstractController
                 $actorRepository->findAll(),
                 $request->query->getInt('page', 1),
                 15
-            )
+            ),
+            'categories' => $this->category,
         ]);
     }
 
@@ -65,6 +71,7 @@ class ActorController extends AbstractController
         return $this->render('admin/actor/new.html.twig', [
             'actor' => $actor,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -77,6 +84,7 @@ class ActorController extends AbstractController
     {
         return $this->render('admin/actor/show.html.twig', [
             'actor' => $actor,
+            'categories' => $this->category,
         ]);
     }
 
@@ -105,6 +113,7 @@ class ActorController extends AbstractController
         return $this->render('admin/actor/edit.html.twig', [
             'actor' => $actor,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 

@@ -7,6 +7,8 @@ use App\Form\EpisodeType;
 use App\Form\ProgramSearchType;
 use App\Repository\EpisodeRepository;
 use App\Repository\ProgramRepository;
+use App\Service\Flash;
+use App\Service\GetCategory;
 use App\Service\Slugify;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -16,10 +18,23 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
+ * @property array category
  * @Route("/episode")
  */
 class EpisodeController extends AbstractController
 {
+
+    /**
+     * @var Flash
+     */
+    private $flash;
+
+    public function __construct(GetCategory $category, Flash $flash)
+    {
+        $this->category = $category->getCategory();
+        $this->flash = $flash;
+    }
+
     /**
      * @Route("/", name="episode_index", methods={"GET"})
      * @param EpisodeRepository  $episodeRepository
@@ -42,6 +57,7 @@ class EpisodeController extends AbstractController
                 10
             ),
             'programs' => $programRepository->findAll(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -65,12 +81,15 @@ class EpisodeController extends AbstractController
             $entityManager->persist($episode);
             $entityManager->flush();
 
+            $this->flash->createFlash('create');
+
             return $this->redirectToRoute('episode_index');
         }
 
         return $this->render('admin/episode/new.html.twig', [
             'episode' => $episode,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -83,6 +102,7 @@ class EpisodeController extends AbstractController
     {
         return $this->render('admin/episode/show.html.twig', [
             'episode' => $episode,
+            'categories' => $this->category,
         ]);
     }
 
@@ -106,12 +126,15 @@ class EpisodeController extends AbstractController
             $entityManager->persist($episode);
             $entityManager->flush();
 
+            $this->flash->createFlash('update');
+
             return $this->redirectToRoute('episode_index');
         }
 
         return $this->render('admin/episode/edit.html.twig', [
             'episode' => $episode,
             'form' => $form->createView(),
+            'categories' => $this->category,
         ]);
     }
 
@@ -127,6 +150,8 @@ class EpisodeController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($episode);
             $entityManager->flush();
+
+            $this->flash->createFlash('delete');
         }
 
         return $this->redirectToRoute('episode_index');

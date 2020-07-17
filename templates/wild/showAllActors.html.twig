@@ -2,38 +2,33 @@
 {% block title 'Tous les acteurs' %}
 
 {% block body %}
-    <div class="container-fluid">
-        <div class="row">
-            {% include 'wild/parts/_menuColumn.html.twig' %}
-            <div class="col-12 col-sm-9 col-md-9 col-lg-10 py-5 pl-4">
-                <h1>Listes des séries</h1>
+    <div class="container">
+        <h1>Les acteurs</h1>
 
-                <div class="row row-cols-2 row-cols-sm-3 row-cols-md-4 row-cols-xl-6 my-5">
-                    {% for actor in actors %}
-                        <div class="col mb-4 actor-card">
-                            <a href="{{ path('wild_actor',
-                                {'slug': actor.slug | lower,
-                                }) }}">
-                                <div class="card card-actor h-100">
-                                    <img src="{{ actor.image ?? asset('build/images/actor.6ddea756.png') }}"
-                                         class="image-shadow {{ actor.image ? "" : "card-img-actor-default" }}"
-                                         alt="{{ actor.name }}">
-                                    <div class="card-body">
-                                        <p class="card-text text-center">
-                                            <small class="text-muted">{{ actor.name }}</small>
-                                        </p>
-                                    </div>
-                                </div>
-                            </a>
+        <div class="row my-5">
+            {% for actor in actors %}
+                <div class="col-6 col-md-4 col-lg-2 mb-4 actor-card">
+                    <a href="{{ path('wild_actor',
+                        {'slug': actor.slug | lower,
+                        }) }}">
+                        <div class="card card-actor h-100">
+                            <img src="{{ actor.image ?? asset('build/images/actor.6ddea756.png') }}"
+                                 class=" {{ actor.image ? "" : "card-img-actor-default" }}"
+                                 alt="{{ actor.name }}">
+                            <div class="card-body">
+                                <p class="card-text text-center">
+                                    <small class="text-muted">{{ actor.name }}</small>
+                                </p>
+                            </div>
                         </div>
-                    {% else %}
-                        Aucune série trouvée.
-                    {% endfor %}
+                    </a>
                 </div>
-                <div class="navigation">
-                    {{ knp_pagination_render(actors) }}
-                </div>
-            </div>
+            {% else %}
+                Aucune série trouvée.
+            {% endfor %}
+        </div>
+        <div class="navigation">
+            {{ knp_pagination_render(actors) }}
         </div>
     </div>
 {% endblock %}
