@@ -22,6 +22,10 @@ body {
   min-height : 100vh;
 }
 
+.container .select2-container--default .select2-selection--single {
+  min-height : 40px;
+}
+
 .container {
   margin-top : 2rem;
 }

@@ -74,8 +74,14 @@
                 {% for comment in comments %}
                     <div class="comment d-flex mb-4">
                         <div class="comment-image text-center">
-                            <img class="image-container" src="{{ asset('images/') ~ comment.author.avatar }}"
-                                 alt="{{ comment.author.username }}">
+                            <figure>
+                                <img class="image-container" src="{{ asset('images/') ~ comment.author.avatar }}"
+                                     alt="{{ comment.author.username }}">
+                                <figcaption class="mt-2">
+                                    {{ comment.rate }}
+                                    <i class="fas fa-star"></i>
+                                </figcaption>
+                            </figure>
                         </div>
                         <div class="comment-content">
                             <div class="comment-body">

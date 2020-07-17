@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
+use App\Service\Flash;
 use App\Service\GetCategory;
 use Doctrine\ORM\EntityManagerInterface;
 use DateTime;
@@ -205,13 +206,15 @@ class WildController extends AbstractController
      * @param Request                $request
      * @param EntityManagerInterface $manager
      * @param string                 $episode
+     * @param Flash                  $flash
      * @return Response
      */
     public function showEpisode(
         EpisodeRepository $episodeRepository,
         Request $request,
         EntityManagerInterface $manager,
-        $episode
+        $episode,
+        Flash $flash
     ): Response {
 
         $episode = $episodeRepository->findOneBy(['slug' => $episode]);
@@ -226,11 +229,13 @@ class WildController extends AbstractController
             $comment->setComment($form['comment']->getData());
             $comment->setEpisode($episode);
             $comment->setPostedAt(new DateTime());
-            $comment->setRate(0);
+            $comment->setRate($form['rate']->getData());
             $manager->persist($comment);
             $manager->flush();
 
-            $this->redirectToRoute('wild_show_episode', [
+            $flash->createFlash('create');
+
+            return $this->redirectToRoute('wild_show_episode', [
                 'slug' => $episode->getSeason()->getProgram()->getSlug(),
                 'episode' => $episode->getSlug(),
             ]);
