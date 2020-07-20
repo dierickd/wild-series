@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "67cc77d4457d71f59ddbac72405a36b0",
+    "content-hash": "8b670e1efd48d8623c42fcd9d6658eba",
     "packages": [
         {
             "name": "composer/package-versions-deprecated",
@@ -4719,48 +4719,6 @@
             "time": "2020-05-23T12:09:32+00:00"
         },
         {
-            "name": "symfony/orm-pack",
-            "version": "v2.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/orm-pack.git",
-                "reference": "46aa731f213140388ee11ff3d2b6776a3b4a0d90"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/orm-pack/zipball/46aa731f213140388ee11ff3d2b6776a3b4a0d90",
-                "reference": "46aa731f213140388ee11ff3d2b6776a3b4a0d90",
-                "shasum": ""
-            },
-            "require": {
-                "composer/package-versions-deprecated": "*",
-                "doctrine/doctrine-bundle": "*",
-                "doctrine/doctrine-migrations-bundle": "*",
-                "doctrine/orm": "*"
-            },
-            "type": "symfony-pack",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "description": "A pack for the Doctrine ORM",
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2020-07-14T14:34:28+00:00"
-        },
-        {
             "name": "symfony/polyfill-intl-icu",
             "version": "v1.18.0",
             "source": {
@@ -8438,7 +8396,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.1.3",
+        "php": "^7.2",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
