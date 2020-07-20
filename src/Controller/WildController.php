@@ -4,7 +4,13 @@
 namespace App\Controller;
 
 
-use App\Entity\Category;
+use App\Entity\Comment;
+use App\Form\CommentType;
+use App\Repository\CommentRepository;
+use App\Service\Flash;
+use App\Service\GetCategory;
+use Doctrine\ORM\EntityManagerInterface;
+use DateTime;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use App\Form\ProgramSearchType;
@@ -18,8 +24,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @property array categories
+ */
 class WildController extends AbstractController
 {
+
+    public function __construct(GetCategory $category)
+    {
+        $this->categories = $category->getCategory();
+    }
+
     /**
      * Show all rows from Program’s entity
      *
@@ -35,6 +50,7 @@ class WildController extends AbstractController
         Request $request
     ): Response
     {
+        $isSearch = false;
         $programs = $paginator->paginate(
             $programRepository->findAllPrograms(),
             $request->query->getInt('page', 1),
@@ -50,13 +66,14 @@ class WildController extends AbstractController
         $form = $this->createForm(ProgramSearchType::class);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted()) {
+        if ($form->isSubmitted() and $form->isValid()) {
             $data = $form->getData();
             $programs = $paginator->paginate(
                 $programRepository->search(mb_strtolower($data['searchField'])),
                 $request->query->getInt('page', 1),
                 10
             );
+            $isSearch = true;
         }
 
         return $this->render(
@@ -64,7 +81,8 @@ class WildController extends AbstractController
             [
                 'programs' => $programs,
                 'form' => $form->createView(),
-                'categories' => $this->getCategory(),
+                'categories' => $this->categories,
+                'search' => $isSearch,
             ]
         );
     }
@@ -92,13 +110,14 @@ class WildController extends AbstractController
         return $this->render('wild/show.html.twig', [
             'program' => $program,
             'seasons' => $program->getSeasons(),
+            'categories' => $this->categories,
         ]);
     }
 
     /**
      * @Route("/series/category/{categoryName}",
      *      name="wild_category",
-     *      requirements={"categoryName"="[A-Za-z'àáâãäåçèéêëìíîïðòóôõöùúûüýÿ -]+"},
+     *      requirements={"categoryName"="[A-Za-z-]+"},
      *     options={"utf8": true}
      * )
      * @param string             $categoryName
@@ -139,7 +158,8 @@ class WildController extends AbstractController
 
         return $this->render('wild/showByCategory.html.twig', [
             'selectByCategory' => $selectByCategory,
-            'categories' => $this->getCategory()
+            'categories' => $this->categories,
+            'category' => $category,
         ]);
     }
 
@@ -149,15 +169,16 @@ class WildController extends AbstractController
      * @param SeasonRepository   $seasonRepository
      * @param Request            $request
      * @param PaginatorInterface $paginator
+     * @param CommentRepository  $commentRepository
      * @return Response
      */
     public function showBySeason(
         int $id,
         SeasonRepository $seasonRepository,
         Request $request,
-        PaginatorInterface $paginator
-    ): Response
-    {
+        PaginatorInterface $paginator,
+        CommentRepository $commentRepository
+    ): Response {
         if (!$id) {
             throw $this
                 ->createNotFoundException('No category has been sent to find a program in program\'s table.');
@@ -173,29 +194,61 @@ class WildController extends AbstractController
                 $request->query->getInt('page', 1),
                 10
             ),
-            'categories' => $this->getCategory()
+            'categories' => $this->categories,
+            'comment' => $commentRepository->findAll(),
         ]);
     }
 
     /**
      * @Route("/series/{slug<[a-zA-Z-]+[0-9]*>}/{episode<[a-zA-Z-]+[0-9]*>}", name="wild_show_episode")
      * @ParamConverter("episode", options={"mapping": {"slug": "episode"}})
-     * @param EpisodeRepository $episodeRepository
-     * @param                   $episode
+     * @param EpisodeRepository      $episodeRepository
+     * @param Request                $request
+     * @param EntityManagerInterface $manager
+     * @param string                 $episode
+     * @param Flash                  $flash
      * @return Response
      */
     public function showEpisode(
-        EpisodeRepository $episodeRepository, $episode
-    ): Response
-    {
+        EpisodeRepository $episodeRepository,
+        Request $request,
+        EntityManagerInterface $manager,
+        $episode,
+        Flash $flash
+    ): Response {
+
         $episode = $episodeRepository->findOneBy(['slug' => $episode]);
+
+        $form = $this->createForm(CommentType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() and $form->isValid()) {
+            $comment = new Comment();
+
+            $comment->setAuthor($this->getUser());
+            $comment->setComment($form['comment']->getData());
+            $comment->setEpisode($episode);
+            $comment->setPostedAt(new DateTime());
+            $comment->setRate($form['rate']->getData());
+            $manager->persist($comment);
+            $manager->flush();
+
+            $flash->createFlash('create');
+
+            return $this->redirectToRoute('wild_show_episode', [
+                'slug' => $episode->getSeason()->getProgram()->getSlug(),
+                'episode' => $episode->getSlug(),
+            ]);
+        }
 
         return $this->render('wild/show/episode.html.twig',
             [
                 'episode' => $episode,
                 'season' => $episode->getSeason(),
                 'program' => $episode->getSeason()->getProgram(),
-                'categories' => $this->getCategory()
+                'categories' => $this->categories,
+                'comments' => $episode->getComments(),
+                'form' => $form->createView(),
             ]);
     }
 
@@ -213,7 +266,8 @@ class WildController extends AbstractController
         $actor = $actorRepository->findOneBy(['slug' => $slug]);
 
         return $this->render('wild/showByActor.html.twig', [
-            'actor' => $actor
+            'actor' => $actor,
+            'categories' => $this->categories,
         ]);
     }
 
@@ -238,15 +292,7 @@ class WildController extends AbstractController
                 $request->query->getInt('page', 1),
                 12
             ),
-            'categories' => $categoryRepository->findAll(),
+            'categories' => $this->categories,
         ]);
-    }
-
-    /**
-     * @return Category[]
-     */
-    public function getCategory()
-    {
-        return $this->getDoctrine()->getRepository(Category::class)->findAll(['name' => 'ASC']);
     }
 }

@@ -1,8 +1,24 @@
-{% extends "base.html.twig" %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{{ encore_entry_link_tags('app') }}{% endblock %}
+</head>
+<body>
 
-{% block body %}
-    <div class="container">
-        <h1>Bienvenue !</h1>
+<div id="main">
+    <div class="container text-center">
+        <img class="p-5 mb-3"
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/The_X-Files_logo.svg/1200px-The_X-Files_logo.svg.png"
+             alt="wild séries">
+        <h2>Bienvenue sur le site dédié aux wilders, retrouvez les séries préférées du campus d'Orléans</h2>
+        <a class="btn btn-lg btn-dark mt-5" href="{{ path('wild_index') }}">Entrer</a>
     </div>
+</div>
 
-{% endblock %}
+<script src="https://kit.fontawesome.com/bfe9f51c30.js" crossorigin="anonymous"></script>
+</body>
+</html>

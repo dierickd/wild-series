@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark dark">
     <a class="navbar-brand" href="/">Wild Séries</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
             aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,13 +6,41 @@
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div class="navbar-nav mx-auto">
-            <a class="nav-item nav-link" href="/"><i class="fas fa-home"></i> Home</a>
-            <a class="nav-item nav-link ml-md-3" href="/cartoons"><i class="fas fa-paw"></i> Animés</a>
+            <a class="nav-item nav-link" href="{{ path('app_index') }}"><i class="fas fa-home"></i> Home</a>
             <a class="nav-item nav-link ml-md-3" href="{{ path('wild_index') }}"><i class="fas fa-tv"></i> Séries</a>
-            <a class="nav-item nav-link ml-md-3" href="/movies"><i class="fas fa-film"></i> Films</a>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-tags"></i> Catégories
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {% for category in categories %}
+                        <a class="dropdown-item"
+                           href="{{ path('wild_category', {'categoryName': category.name}) }}">{{ category.name }}</a>
+                    {% else %}
+                        <a class="dropdown-item" disabled href="">Aucune catégorie disponible</a>
+                    {% endfor %}
+                </div>
+            </li>
+            <a class="nav-item nav-link" href="{{ path('wild_all_actors') }}"><i class="fas fa-home"></i> Acteurs</a>
         </div>
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="{{ path('admin') }}"><i class="fas fa-user-friends"></i> Administration</a>
+
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {% if app.user is defined %}
+                    <a class="nav-item nav-link" href="{{ path('app_logout') }}"><i class="fas fa-user-friends mr-1"></i>
+                        Se déconnecter</a>
+                    {% if app.user.roles[0] == 'ROLE_USER' or app.user.roles[0] == 'ROLE_SUBSCRIBER' %}
+                        <a class="nav-item nav-link" href="{{ path('profile', {'username': app.user.username}) }}"><i class="fas fa-cog mr-1"></i>Mon
+                            profile</a>
+                    {% elseif app.user.roles[0] == 'ROLE_ADMIN' %}
+                        <a class="nav-item nav-link" href="{{ path('admin') }}"><i class="fas fa-cog mr-1"></i>Administration</a>
+                    {% endif %}
+                {% endif %}
+            {% else %}
+                <a class="nav-item nav-link" href="{{ path('app_login') }}"><i class="fas fa-user-friends mr-1"></i> Se
+                    connecter</a>
+            {% endif %}
         </div>
     </div>
 </nav>

@@ -19,3 +19,5 @@
 [17 - Symfony : Introduction aux “Services”](https://drive.google.com/file/d/1ByADG-DL7gVYzoGfNFwxyjsen6geHxwD/view?usp=sharing)
 
 [18 - Symfony : Envoi d’e-mail](https://drive.google.com/file/d/1rwYiUJszZvYCYAo2X9dF1orScBvyfW_C/view?usp=sharing)
+
+[19 - Symfony : Gestion des utilisateurs](https://drive.google.com/file/d/12CtY9SuzRBkbkHpOU_Znd5bj7aDsysKP/view?usp=sharing)

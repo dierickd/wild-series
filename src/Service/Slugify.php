@@ -8,6 +8,7 @@ class Slugify
 {
     public function generate(string $string): string
     {
+
         $specialsCharacters = [':','!','?','/','\\',';',',','.','§','*','%','$',')','(',']','[','&','=','#','"','|','{','}'];
         $specialsA = ['à','á','â','ã','ä','å'];
         $specialsC = ['ç'];
@@ -15,7 +16,7 @@ class Slugify
         $specialsU = ['ù','ú','û','ü'];
         $specialsI = ['ì','í','î','ï'];
         $specialsY = ['ý','ÿ'];
-        $specialsE = ['è','é','ê','ë'];
+        $specialsE = ['è','é','ê','ë','É'];
 
         $slug = str_replace($specialsCharacters, '', $string);
         $slug = str_replace($specialsA, 'a', $slug);
